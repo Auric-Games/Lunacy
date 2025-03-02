@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://c6mne5f0o5rip"]
+
+[ext_resource type="Script" path="res://game/src/unit/base_unit/scripts/component_list.gd" id="1_63gnj"]
+
+[node name="ComponentContainer" type="Node"]
+script = ExtResource("1_63gnj")

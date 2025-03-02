@@ -1,0 +1,91 @@
+[gd_scene load_steps=15 format=3 uid="uid://ye6dip1db0cb"]
+
+[ext_resource type="Script" path="res://game/src/unit/enemy_unit/scripts/base_enemy.gd" id="1_tmls8"]
+[ext_resource type="Texture2D" uid="uid://fthomgfnwgi" path="res://preprod/assets/textures/Tiny RPG Character Asset Pack v1.03 -Free Soldier&Orc/Characters(100x100)/Orc/Orc with shadows/Orc-Idle.png" id="2_ebuac"]
+[ext_resource type="PackedScene" uid="uid://c6mne5f0o5rip" path="res://game/src/globals/scripts/unit_components/component_container.tscn" id="3_wtxtu"]
+[ext_resource type="PackedScene" uid="uid://c0isollvtf16b" path="res://game/src/globals/scripts/unit_components/movement/movement_component.tscn" id="4_j0bvd"]
+[ext_resource type="PackedScene" uid="uid://kuux2ffvgyxv" path="res://game/src/unit/enemy_unit/ai_components/basic_ai/component_basic_ai.tscn" id="5_7yw84"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nsaht"]
+atlas = ExtResource("2_ebuac")
+region = Rect2(42, 42, 25, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3lxpy"]
+atlas = ExtResource("2_ebuac")
+region = Rect2(142, 42, 25, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnie3"]
+atlas = ExtResource("2_ebuac")
+region = Rect2(242, 42, 25, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yjc5p"]
+atlas = ExtResource("2_ebuac")
+region = Rect2(342, 42, 25, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bljnt"]
+atlas = ExtResource("2_ebuac")
+region = Rect2(442, 42, 25, 18)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bd23s"]
+atlas = ExtResource("2_ebuac")
+region = Rect2(542, 42, 25, 18)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4kx1p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nsaht")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3lxpy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnie3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yjc5p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bljnt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bd23s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_p4phi"]
+radius = 5.0
+height = 16.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_gxcjr"]
+radius = 3.0
+height = 8.0
+
+[node name="BaseEnemy" type="CharacterBody2D"]
+script = ExtResource("1_tmls8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(4, -7)
+sprite_frames = SubResource("SpriteFrames_4kx1p")
+
+[node name="HurtBox" type="Area2D" parent="."]
+position = Vector2(0, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0, -7)
+shape = SubResource("CapsuleShape2D_p4phi")
+
+[node name="PhysicsCollider" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_gxcjr")
+
+[node name="ComponentContainer" parent="." instance=ExtResource("3_wtxtu")]
+
+[node name="MovementComponent" parent="ComponentContainer" instance=ExtResource("4_j0bvd")]
+
+[node name="BasicAi" parent="ComponentContainer" instance=ExtResource("5_7yw84")]
