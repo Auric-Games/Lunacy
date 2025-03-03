@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://cxi4amc8hn7hr"]
+
+[ext_resource type="Script" path="res://game/src/unit/base_unit.gd" id="1_03yy7"]
+
+[node name="UnitTemplate" type="CharacterBody2D"]
+script = ExtResource("1_03yy7")
+current_hp = null
+mvmt_speed = null
+
+[node name="SpriteController" type="AnimatedSprite2D" parent="."]
+
+[node name="HurtBox" type="Area2D" parent="."]
+
+[node name="Collider" type="CollisionShape2D" parent="HurtBox"]
