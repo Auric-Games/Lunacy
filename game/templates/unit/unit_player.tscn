@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://cxi4amc8hn7hr"]
+[gd_scene load_steps=7 format=3 uid="uid://cxi4amc8hn7hr"]
 
-[ext_resource type="Script" path="res://game/src/unit/player_unit.gd" id="1_g1owm"]
+[ext_resource type="Script" path="res://game/src/unit/player/player_unit.gd" id="1_g1owm"]
 [ext_resource type="SpriteFrames" uid="uid://4i10ym1awmbg" path="res://game/assets/spritesheets/units/base_unit.tres" id="2_urnb0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_kvqwu"]
@@ -8,6 +8,8 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_n06la"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3njpr"]
+
+[sub_resource type="AnimationRootNode" id="AnimationRootNode_rbrl4"]
 
 [node name="PlayerUnit" type="CharacterBody2D"]
 scale = Vector2(0.2, 0.2)
@@ -17,7 +19,6 @@ script = ExtResource("1_g1owm")
 sprite_frames = ExtResource("2_urnb0")
 
 [node name="SpawnRadius" type="Area2D" parent="."]
-scale = Vector2(1, 1)
 
 [node name="Collider" type="CollisionShape2D" parent="SpawnRadius"]
 shape = SubResource("CircleShape2D_kvqwu")
@@ -31,3 +32,10 @@ shape = SubResource("RectangleShape2D_n06la")
 shape = SubResource("RectangleShape2D_3njpr")
 
 [node name="Camera" type="Camera2D" parent="."]
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath(".")
+tree_root = SubResource("AnimationRootNode_rbrl4")
+anim_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationTree"]

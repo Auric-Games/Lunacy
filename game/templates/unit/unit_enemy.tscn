@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://djksrtn3til2p"]
+
+[ext_resource type="Script" path="res://game/src/unit/base_unit.gd" id="1_j6xgu"]
+[ext_resource type="SpriteFrames" uid="uid://4i10ym1awmbg" path="res://game/assets/spritesheets/units/base_unit.tres" id="2_xhqct"]
+[ext_resource type="Script" path="res://game/src/common/statemachine/generic_state_machine.gd" id="3_6rqk0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d70ar"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lb2t3"]
+
+[node name="UnitTemplate" type="CharacterBody2D"]
+script = ExtResource("1_j6xgu")
+
+[node name="SpriteController" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+sprite_frames = ExtResource("2_xhqct")
+
+[node name="HurtBox" type="Area2D" parent="."]
+
+[node name="Collider" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("RectangleShape2D_d70ar")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lb2t3")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_6rqk0")
