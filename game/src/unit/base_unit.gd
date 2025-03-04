@@ -23,5 +23,7 @@ func _physics_process(_delta : float) -> void :
 func _load_data(data : Resource) -> void :
 	pass
 
+
+
 func update_velocity(new_velocity : Vector2, update_speed : float = mvmt_speed / 1000) -> void :
 	self.velocity = lerp(self.velocity, new_velocity, update_speed)

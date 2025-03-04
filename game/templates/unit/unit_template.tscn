@@ -1,14 +1,23 @@
-[gd_scene load_steps=2 format=3 uid="uid://thn7gy7kyfr3"]
+[gd_scene load_steps=5 format=3 uid="uid://thn7gy7kyfr3"]
 
 [ext_resource type="Script" path="res://game/src/unit/base_unit.gd" id="1_hglxl"]
+[ext_resource type="SpriteFrames" uid="uid://4i10ym1awmbg" path="res://game/assets/spritesheets/units/base_unit.tres" id="2_u1gjv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d70ar"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lb2t3"]
 
 [node name="UnitTemplate" type="CharacterBody2D"]
 script = ExtResource("1_hglxl")
-current_hp = null
-mvmt_speed = null
 
 [node name="SpriteController" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+sprite_frames = ExtResource("2_u1gjv")
 
 [node name="HurtBox" type="Area2D" parent="."]
 
 [node name="Collider" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("RectangleShape2D_d70ar")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lb2t3")
