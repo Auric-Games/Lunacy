@@ -1,11 +1,27 @@
-[gd_scene load_steps=9 format=3 uid="uid://cxi4amc8hn7hr"]
+[gd_scene load_steps=12 format=3 uid="uid://cxi4amc8hn7hr"]
 
 [ext_resource type="Script" path="res://game/src/unit/player/player_unit.gd" id="1_g1owm"]
+[ext_resource type="Texture2D" uid="uid://np7cj3xx2j6l" path="res://prototypes/assets/playerSprites_ [version 1.0]/sword_ [iron].png" id="2_1xcmt"]
+[ext_resource type="Script" path="res://game/src/unit/components/player_weapon/weapon_component.gd" id="2_4vhpt"]
 [ext_resource type="SpriteFrames" uid="uid://4i10ym1awmbg" path="res://game/assets/spritesheets/units/base_unit.tres" id="2_urnb0"]
 [ext_resource type="Script" path="res://game/src/common/statemachine/generic_state_machine.gd" id="3_d7bro"]
 [ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/player_states/idle.gd" id="4_bcex7"]
 [ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/player_states/run.gd" id="5_0fry1"]
-[ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/player_states/combo.gd" id="6_3o2jw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3r5e6"]
+atlas = ExtResource("2_1xcmt")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vpdcv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3r5e6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ghm0v"]
 size = Vector2(20, 25)
@@ -15,6 +31,19 @@ size = Vector2(20, 25)
 [node name="PlayerUnit" type="CharacterBody2D"]
 scale = Vector2(0.2, 0.2)
 script = ExtResource("1_g1owm")
+move_speed = 250.0
+
+[node name="WeaponContainer" type="Node2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -37)
+script = ExtResource("2_4vhpt")
+
+[node name="WeaponSprite" type="AnimatedSprite2D" parent="WeaponContainer"]
+y_sort_enabled = true
+position = Vector2(100, 0)
+rotation = 1.5708
+scale = Vector2(5.2, 5.2)
+sprite_frames = SubResource("SpriteFrames_vpdcv")
 
 [node name="SpriteController" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true
@@ -22,13 +51,12 @@ texture_filter = 1
 position = Vector2(-2, -67)
 scale = Vector2(6, 6)
 sprite_frames = ExtResource("2_urnb0")
-animation = &"die"
+animation = &"idle_east"
 
 [node name="HurtBox" type="Area2D" parent="."]
 
 [node name="Collider" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(-1.2517e-06, -2.5)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_ghm0v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -45,6 +73,3 @@ script = ExtResource("4_bcex7")
 
 [node name="Run" type="Node" parent="StateMachine"]
 script = ExtResource("5_0fry1")
-
-[node name="Combo" type="Node" parent="StateMachine"]
-script = ExtResource("6_3o2jw")

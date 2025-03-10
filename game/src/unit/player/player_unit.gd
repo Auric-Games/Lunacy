@@ -6,13 +6,13 @@ class_name PlayerUnit extends BaseUnit
 
 @onready var camera_ref : Camera2D = $Camera
 @onready var sprite_ref : AnimatedSprite2D = $SpriteController
-
-func _init() -> void :
-	move_speed = 200
+@onready var weapon_ref : Node2D = $WeaponContainer
+#@onready var statemachine : StateMachine = $StateMachine
 
 func _ready() -> void :
 	if (UnitData != null) :
 		_load_data(UnitData)
+	
 
 func _process(_delta: float) -> void :
 #	handle_movement_input()

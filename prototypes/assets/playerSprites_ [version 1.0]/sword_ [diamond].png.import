@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d1gpjq0wswobl"
-path="res://.godot/imported/tilemap.png-19fbe0dfbb5a96e489f7282c326e5aca.ctex"
+uid="uid://dprfxsvamx88w"
+path="res://.godot/imported/sword_ [diamond].png-552604798133e7f1591eccd8edb444d4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://prototypes/assets/Tilemap/tilemap.png"
-dest_files=["res://.godot/imported/tilemap.png-19fbe0dfbb5a96e489f7282c326e5aca.ctex"]
+source_file="res://prototypes/assets/playerSprites_ [version 1.0]/sword_ [diamond].png"
+dest_files=["res://.godot/imported/sword_ [diamond].png-552604798133e7f1591eccd8edb444d4.ctex"]
 
 [params]
 

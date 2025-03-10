@@ -13,6 +13,7 @@ script = ExtResource("1_hglxl")
 [node name="SpriteController" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.2, 0.2)
 sprite_frames = ExtResource("2_u1gjv")
+animation = &"die"
 
 [node name="HurtBox" type="Area2D" parent="."]
 

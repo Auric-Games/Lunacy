@@ -9,7 +9,11 @@ class_name BaseUnit extends CharacterBody2D
 		if (value <= 0) :
 			pass
 			# run death script / destructor
-@export var move_speed : float = 100
+		current_hp = value
+@export var move_speed : float = 100 :
+	set(value) :
+		move_speed = value	
+
 
 # Protected Vars
 var _target_velocity : Vector2 = Vector2.ZERO :
