@@ -9,7 +9,7 @@ class_name BaseUnit extends CharacterBody2D
 		if (value <= 0) :
 			pass
 			# run death script / destructor
-@export var mvmt_speed : float = 100
+@export var move_speed : float = 100
 
 # Protected Vars
 var _target_velocity : Vector2 = Vector2.ZERO :
@@ -25,5 +25,5 @@ func _load_data(data : Resource) -> void :
 
 
 
-func update_velocity(new_velocity : Vector2, update_speed : float = mvmt_speed / 1000) -> void :
+func update_velocity(new_velocity : Vector2, update_speed : float = move_speed / 1000) -> void :
 	self.velocity = lerp(self.velocity, new_velocity, update_speed)

@@ -1,41 +1,50 @@
-[gd_scene load_steps=7 format=3 uid="uid://cxi4amc8hn7hr"]
+[gd_scene load_steps=9 format=3 uid="uid://cxi4amc8hn7hr"]
 
 [ext_resource type="Script" path="res://game/src/unit/player/player_unit.gd" id="1_g1owm"]
 [ext_resource type="SpriteFrames" uid="uid://4i10ym1awmbg" path="res://game/assets/spritesheets/units/base_unit.tres" id="2_urnb0"]
+[ext_resource type="Script" path="res://game/src/common/statemachine/generic_state_machine.gd" id="3_d7bro"]
+[ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/player_states/idle.gd" id="4_bcex7"]
+[ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/player_states/run.gd" id="5_0fry1"]
+[ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/player_states/combo.gd" id="6_3o2jw"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_kvqwu"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ghm0v"]
+size = Vector2(20, 25)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_n06la"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3njpr"]
-
-[sub_resource type="AnimationRootNode" id="AnimationRootNode_rbrl4"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ybnqa"]
 
 [node name="PlayerUnit" type="CharacterBody2D"]
 scale = Vector2(0.2, 0.2)
 script = ExtResource("1_g1owm")
 
 [node name="SpriteController" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+texture_filter = 1
+position = Vector2(-2, -67)
+scale = Vector2(6, 6)
 sprite_frames = ExtResource("2_urnb0")
-
-[node name="SpawnRadius" type="Area2D" parent="."]
-
-[node name="Collider" type="CollisionShape2D" parent="SpawnRadius"]
-shape = SubResource("CircleShape2D_kvqwu")
+animation = &"die"
 
 [node name="HurtBox" type="Area2D" parent="."]
 
 [node name="Collider" type="CollisionShape2D" parent="HurtBox"]
-shape = SubResource("RectangleShape2D_n06la")
+position = Vector2(-1.2517e-06, -2.5)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_ghm0v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_3njpr")
+position = Vector2(0, 5)
+shape = SubResource("CircleShape2D_ybnqa")
 
 [node name="Camera" type="Camera2D" parent="."]
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
-root_node = NodePath(".")
-tree_root = SubResource("AnimationRootNode_rbrl4")
-anim_player = NodePath("AnimationPlayer")
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_d7bro")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="AnimationTree"]
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("4_bcex7")
+
+[node name="Run" type="Node" parent="StateMachine"]
+script = ExtResource("5_0fry1")
+
+[node name="Combo" type="Node" parent="StateMachine"]
+script = ExtResource("6_3o2jw")
