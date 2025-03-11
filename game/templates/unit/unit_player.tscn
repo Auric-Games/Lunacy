@@ -73,3 +73,5 @@ script = ExtResource("4_bcex7")
 
 [node name="Run" type="Node" parent="StateMachine"]
 script = ExtResource("5_0fry1")
+
+[node name="Attack" type="Node" parent="StateMachine"]

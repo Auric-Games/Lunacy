@@ -28,6 +28,5 @@ func get_cardinal(direction : Vector2) -> int :
 func _ready() -> void:
 	await owner.ready
 	player = owner as PlayerUnit
-	print(player.name)
 	weapon = owner.weapon_ref
 	assert(player != null, "ERROR : PlayerStates can only be attached to type PlayerUnit")

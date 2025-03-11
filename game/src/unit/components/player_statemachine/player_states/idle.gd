@@ -1,7 +1,6 @@
 extends PlayerState
 
 func enter(previous_state_path: String, data := {}) -> void:
-	print("idle")
 	player._target_velocity = Vector2.ZERO
 	if (data.is_empty()) :
 		player.sprite_ref.play("idle_south")
@@ -42,5 +41,3 @@ func follow_mouse() -> void :
 			player.sprite_ref.play("idle_east")
 		_:
 			printerr("how did you manage to get an integer not 0-3 in move_dir")
-	
-	weapon.look_at(mouse_pos)
