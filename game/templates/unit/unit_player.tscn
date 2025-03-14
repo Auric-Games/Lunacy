@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cxi4amc8hn7hr"]
+[gd_scene load_steps=14 format=3 uid="uid://cxi4amc8hn7hr"]
 
 [ext_resource type="Script" path="res://game/src/unit/player/player_unit.gd" id="1_g1owm"]
 [ext_resource type="Texture2D" uid="uid://np7cj3xx2j6l" path="res://prototypes/assets/playerSprites_ [version 1.0]/sword_ [iron].png" id="2_1xcmt"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://game/src/common/statemachine/generic_state_machine.gd" id="3_d7bro"]
 [ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/player_states/idle.gd" id="4_bcex7"]
 [ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/player_states/run.gd" id="5_0fry1"]
+[ext_resource type="Script" path="res://game/src/common/colliders/soft_collision.gd" id="5_c00qv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3r5e6"]
 atlas = ExtResource("2_1xcmt")
@@ -23,15 +24,19 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajdb6"]
+size = Vector2(90, 115)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ghm0v"]
-size = Vector2(20, 25)
+size = Vector2(90, 117.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ybnqa"]
 
 [node name="PlayerUnit" type="CharacterBody2D"]
 scale = Vector2(0.2, 0.2)
+collision_layer = 2
+collision_mask = 7
 script = ExtResource("1_g1owm")
-move_speed = 250.0
 
 [node name="WeaponContainer" type="Node2D" parent="."]
 texture_filter = 1
@@ -53,14 +58,27 @@ scale = Vector2(6, 6)
 sprite_frames = ExtResource("2_urnb0")
 animation = &"idle_east"
 
+[node name="SoftCollision" type="Area2D" parent="."]
+scale = Vector2(1, 1)
+collision_layer = 2147483648
+collision_mask = 2147483648
+script = ExtResource("5_c00qv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision"]
+position = Vector2(-5, -67.5)
+shape = SubResource("RectangleShape2D_ajdb6")
+
 [node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2147483669
 
 [node name="Collider" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(-1.2517e-06, -2.5)
+position = Vector2(-5, -68.75)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_ghm0v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 5)
+position = Vector2(-5, -15)
 shape = SubResource("CircleShape2D_ybnqa")
 
 [node name="Camera" type="Camera2D" parent="."]

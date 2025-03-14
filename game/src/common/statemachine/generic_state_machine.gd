@@ -7,6 +7,7 @@ class_name StateMachine extends Node
 ).call()
 
 
+
 func _ready() -> void:
 	for state_node: State in find_children("*", "State"):
 		state_node.finished.connect(_transition_to_next_state)

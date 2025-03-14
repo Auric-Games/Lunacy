@@ -1,28 +1,51 @@
-[gd_scene load_steps=6 format=3 uid="uid://djksrtn3til2p"]
+[gd_scene load_steps=10 format=3 uid="uid://djksrtn3til2p"]
 
-[ext_resource type="Script" path="res://game/src/unit/base_unit.gd" id="1_j6xgu"]
-[ext_resource type="SpriteFrames" uid="uid://4i10ym1awmbg" path="res://game/assets/spritesheets/units/base_unit.tres" id="2_xhqct"]
+[ext_resource type="Script" path="res://game/src/unit/enemies/enemy_unit.gd" id="1_tid05"]
+[ext_resource type="Script" path="res://game/src/common/colliders/soft_collision.gd" id="2_u6tsn"]
+[ext_resource type="Texture2D" uid="uid://dltesnm1oesc7" path="res://game/assets/common/icon.svg" id="2_v8lnh"]
 [ext_resource type="Script" path="res://game/src/common/statemachine/generic_state_machine.gd" id="3_6rqk0"]
+[ext_resource type="Script" path="res://game/src/common/statemachine/generic_state.gd" id="5_rr68h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_d70ar"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_kkmeb"]
+atlas = ExtResource("2_v8lnh")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5vme7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kkmeb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lb2t3"]
 
-[node name="UnitTemplate" type="CharacterBody2D"]
-script = ExtResource("1_j6xgu")
+[node name="EnemyTemplate" type="CharacterBody2D"]
+script = ExtResource("1_tid05")
+
+[node name="SoftCollision" type="Area2D" parent="."]
+collision_layer = 2147483648
+collision_mask = 2147483648
+script = ExtResource("2_u6tsn")
+
+[node name="Collider" type="CollisionShape2D" parent="SoftCollision"]
+shape = SubResource("RectangleShape2D_d70ar")
 
 [node name="SpriteController" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
 scale = Vector2(0.2, 0.2)
-sprite_frames = ExtResource("2_xhqct")
-animation = &"die"
-
-[node name="HurtBox" type="Area2D" parent="."]
-
-[node name="Collider" type="CollisionShape2D" parent="HurtBox"]
-shape = SubResource("RectangleShape2D_d70ar")
+sprite_frames = SubResource("SpriteFrames_5vme7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_lb2t3")
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("3_6rqk0")
+
+[node name="State" type="Node" parent="StateMachine"]
+script = ExtResource("5_rr68h")

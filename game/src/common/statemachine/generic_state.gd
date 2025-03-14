@@ -1,5 +1,5 @@
 class_name State extends Node
-
+  
 const next_states : Array[State] = [null]
 
 signal finished(next_state_path : String, data : Dictionary)

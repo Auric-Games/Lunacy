@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=4 uid="uid://bl4meto2e3auk"]
+[gd_scene load_steps=10 format=4 uid="uid://bl4meto2e3auk"]
 
-[ext_resource type="Texture2D" uid="uid://die0gtd4nttmr" path="res://prototypes/assets/Tilemap/tilemap_packed.png" id="1_7x5qq"]
+[ext_resource type="Texture2D" uid="uid://die0gtd4nttmr" path="res://prototypes/assets/tilemap/tilemap_packed.png" id="1_7x5qq"]
 [ext_resource type="PackedScene" uid="uid://cxi4amc8hn7hr" path="res://game/templates/unit/unit_player.tscn" id="2_qpfpt"]
+[ext_resource type="PackedScene" uid="uid://djksrtn3til2p" path="res://game/templates/unit/unit_enemy.tscn" id="3_odufv"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l18qj"]
 texture = ExtResource("1_7x5qq")
@@ -186,5 +187,32 @@ shape = SubResource("RectangleShape2D_ww8nk")
 position = Vector2(87, 308)
 shape = SubResource("RectangleShape2D_ixa2o")
 
-[node name="PlayerUnit" parent="." instance=ExtResource("2_qpfpt")]
+[node name="PlayerUnit" parent="." groups=["Player"] instance=ExtResource("2_qpfpt")]
 position = Vector2(589, 312)
+move_speed = 500.0
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="EnemyTemplate" parent="Enemies" instance=ExtResource("3_odufv")]
+position = Vector2(350, 223)
+
+[node name="EnemyTemplate2" parent="Enemies" instance=ExtResource("3_odufv")]
+position = Vector2(298, 352)
+
+[node name="EnemyTemplate3" parent="Enemies" instance=ExtResource("3_odufv")]
+position = Vector2(520, 172)
+
+[node name="EnemyTemplate4" parent="Enemies" instance=ExtResource("3_odufv")]
+position = Vector2(432, 308)
+
+[node name="EnemyTemplate5" parent="Enemies" instance=ExtResource("3_odufv")]
+position = Vector2(240, 250)
+
+[node name="EnemyTemplate6" parent="Enemies" instance=ExtResource("3_odufv")]
+position = Vector2(267, 150)
+
+[node name="EnemyTemplate7" parent="Enemies" instance=ExtResource("3_odufv")]
+position = Vector2(153, 201)
+
+[node name="EnemyTemplate8" parent="Enemies" instance=ExtResource("3_odufv")]
+position = Vector2(382, 82)

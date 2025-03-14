@@ -4,3 +4,4 @@ extends AI
 
 func chase_target(target : BaseUnit = player_ref) -> void :
 	move_to_pos(target.position)
+
