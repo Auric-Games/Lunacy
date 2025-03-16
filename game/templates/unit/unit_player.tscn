@@ -59,7 +59,6 @@ sprite_frames = ExtResource("2_urnb0")
 animation = &"idle_east"
 
 [node name="SoftCollision" type="Area2D" parent="."]
-scale = Vector2(1, 1)
 collision_layer = 2147483648
 collision_mask = 2147483648
 script = ExtResource("5_c00qv")
@@ -74,7 +73,6 @@ collision_mask = 2147483669
 
 [node name="Collider" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(-5, -68.75)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_ghm0v")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

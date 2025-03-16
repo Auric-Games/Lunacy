@@ -40,4 +40,4 @@ func follow_mouse() -> void :
 			if (player.sprite_ref.flip_h == false) : player.sprite_ref.flip_h = true
 			player.sprite_ref.play("idle_east")
 		_:
-			printerr("how did you manage to get an integer not 0-3 in move_dir")
+			printerr("ERROR [follow_mouse()]) : direction " + str(get_cardinal(mouse_delta)) + "not found")

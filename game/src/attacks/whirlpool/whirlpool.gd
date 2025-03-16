@@ -13,7 +13,7 @@ func _ready() -> void :
   shape.radius = 100
   whirlpoolArea.shape = shape
 
-func _physics_process(delta : float) -> void :
+func _physics_process(_delta : float) -> void :
   for area in get_overlapping_areas() :
     if !(area.owner is BaseUnit) :
       continue

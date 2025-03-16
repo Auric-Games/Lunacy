@@ -6,5 +6,5 @@ func _init() -> void:
 func _ready() -> void :
 	pass
 
-func move_to_pos(target_pos : Vector2, delta : float = 1/60	) -> void :
+func move_to_pos(target_pos : Vector2, delta : float = 1.0/60.0	) -> void :
 	owner.position = owner.position.lerp(target_pos, delta)
