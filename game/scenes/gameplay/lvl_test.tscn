@@ -155,6 +155,7 @@ size = Vector2(37.4675, 631.5)
 size = Vector2(24, 586)
 
 [node name="LvlTest" type="Node2D"]
+y_sort_enabled = true
 
 [node name="Map" type="Node2D" parent="."]
 

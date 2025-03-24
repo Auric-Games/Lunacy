@@ -1,6 +1,11 @@
 class_name SoftCollision extends Area2D
 
-@export var collision_shape : CollisionShape2D
+@export var collision_shape : CollisionShape2D :
+	set(value) :
+		add_child(value)
+		value.owner = self
+		collision_shape = value
+
 @export var push_force : float = 200
 
 func is_colliding() -> bool:
@@ -15,11 +20,10 @@ func get_push_vector() -> Vector2:
 	return push_vector
 
 func _init() -> void:
+	set_collision_layer_value(32,true)
 	collision_shape = CollisionShape2D.new()
-	collision_shape.owner = self
 	add_child(collision_shape)
 
 func _ready() -> void:
 	collision_shape = CollisionShape2D.new()
-	collision_shape.owner = self
 	add_child(collision_shape)

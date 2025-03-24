@@ -14,6 +14,9 @@ func enter(previous_state_path: String, data := {}) -> void:
 
 
 func physics_update(delta: float) -> void :
+	if can_attack && Input.is_action_just_pressed('skill_mode') :
+		finished.emit("SkillMode")
+		
 	move_dir = Input.get_vector('move_left', 'move_right', 'move_up', 'move_down', 0.1)
 	player._target_velocity = move_dir * player.move_speed
 

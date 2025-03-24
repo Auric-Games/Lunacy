@@ -1,1 +1,1 @@
-extends Node
+extends Camera2D

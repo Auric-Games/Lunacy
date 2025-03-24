@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://bsmyq03db5c53"]
+
+[ext_resource type="Texture2D" uid="uid://drs6k3tkyebq7" path="res://game/assets/common/missing_texture.png" id="1_oa6uy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7koyr"]
+albedo_texture = ExtResource("1_oa6uy")
+
+[sub_resource type="QuadMesh" id="QuadMesh_n3hhc"]
+material = SubResource("StandardMaterial3D_7koyr")
+size = Vector2(20, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fw6xg"]
+
+[node name="IceWall" type="Node2D"]
+
+[node name="TemporaryVisualizer" type="MeshInstance2D" parent="."]
+texture_repeat = 2
+scale = Vector2(2.22, 0.732)
+mesh = SubResource("QuadMesh_n3hhc")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(2.22035, 0.731523)
+shape = SubResource("RectangleShape2D_fw6xg")

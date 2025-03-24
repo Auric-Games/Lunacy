@@ -26,6 +26,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lb2t3"]
 
 [node name="EnemyTemplate" type="CharacterBody2D"]
+y_sort_enabled = true
 script = ExtResource("1_tid05")
 
 [node name="SoftCollision" type="Area2D" parent="." node_paths=PackedStringArray("collision_shape")]
