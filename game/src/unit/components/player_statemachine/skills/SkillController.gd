@@ -8,6 +8,9 @@ var timer : Timer
 var mana_modifier : int = 0
 
 func _ready():
+	for skill_node: PlayerSkill in find_children("*", "PlayerSkill"):
+		skill_list[skill_node.combo_string] = skill_node
+
 	skill_state_ref.combo_attempt.connect(process_combo)
 	skill_state_ref.fizzled.connect(fizzle)
 
@@ -24,10 +27,12 @@ func physics_process(delta: float) -> void:
 	pass
 
 func process_combo(combo : String) -> void:
+	print(skill_list)
 	print("combo: " + combo)
 	if skill_list.has(combo) :
 		timer.start()
 		print("casting skill: " + combo)
+		skill_list[combo].start()
 
 func fizzle() -> void:
 	print("fizzled")

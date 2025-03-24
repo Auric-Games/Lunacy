@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://bsmyq03db5c53"]
+[gd_scene load_steps=7 format=3 uid="uid://bsmyq03db5c53"]
 
 [ext_resource type="Texture2D" uid="uid://drs6k3tkyebq7" path="res://game/assets/common/missing_texture.png" id="1_oa6uy"]
+[ext_resource type="Script" path="res://game/templates/skills/player_skills/IceWallTemplate.gd" id="1_pn4hv"]
+[ext_resource type="PackedScene" uid="uid://cgbqq0yxxa72i" path="res://game/templates/common/HP_Indicator.tscn" id="3_6wf3e"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7koyr"]
 albedo_texture = ExtResource("1_oa6uy")
@@ -12,6 +14,8 @@ size = Vector2(20, 20)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fw6xg"]
 
 [node name="IceWall" type="Node2D"]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_pn4hv")
 
 [node name="TemporaryVisualizer" type="MeshInstance2D" parent="."]
 texture_repeat = 2
@@ -23,3 +27,8 @@ mesh = SubResource("QuadMesh_n3hhc")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 scale = Vector2(2.22035, 0.731523)
 shape = SubResource("RectangleShape2D_fw6xg")
+
+[node name="HpIndicator" parent="." instance=ExtResource("3_6wf3e")]
+position = Vector2(0, -9)
+
+[editable path="HpIndicator"]

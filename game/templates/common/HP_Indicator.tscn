@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://cgbqq0yxxa72i"]
+
+[node name="HpIndicator" type="Node2D"]
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -4.0
+offset_right = 196.0
+offset_bottom = 30.0
+scale = Vector2(0.04, 0.04)

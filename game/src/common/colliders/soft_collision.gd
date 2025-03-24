@@ -21,9 +21,19 @@ func get_push_vector() -> Vector2:
 
 func _init() -> void:
 	set_collision_layer_value(32,true)
-	collision_shape = CollisionShape2D.new()
-	add_child(collision_shape)
+	if (get_child_count() == 0) :
+		collision_shape = CollisionShape2D.new()
+		collision_shape.owner = self
+	else :
+		collision_shape = get_child(0)
+	#collision_shape = CollisionShape2D.new()
+	#add_child(collision_shape)
 
 func _ready() -> void:
-	collision_shape = CollisionShape2D.new()
-	add_child(collision_shape)
+	if (get_child_count() == 0) :
+		collision_shape = CollisionShape2D.new()
+		collision_shape.owner = self
+	else :
+		collision_shape = get_child(0)
+	#collision_shape = CollisionShape2D.new()
+	#add_child(collision_shape)
