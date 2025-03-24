@@ -1,9 +1,17 @@
 extends Node2D
 
 var current_hp : int
+var immediate_damage : int = 3
+var dot_damage : int = 1
 signal destroyed()
 
-@onready var collider : Area2D = $Area2D
+@onready var hurtbox: Area2D = get_node("DamageBox") :
+	set(value) :
+		for body in hurtbox.get_overlapping_bodies() :
+			if body.has_method("take_damage") :
+				body.take_damage(immediate_damage)
+			else :
+				print("body does not have take_damage method")
 @onready var hp_indicator : ProgressBar = get_node("HpIndicator/ProgressBar")
 
 func _get_physics_time_scale() -> float:
@@ -29,9 +37,15 @@ func _physics_process(delta: float) -> void:
 		counter = 0
 		current_hp -= 1
 		update_hp_indicator()
+		if (current_hp <= 0) :
+			print("ice wall destroyed")
+			destroyed.emit(self)
+			queue_free()
 	else :
 		counter += 1
-	if (current_hp <= 0) :
-		print("ice wall destroyed")
-		destroyed.emit(self)
-		queue_free()
+	
+	for body in hurtbox.get_overlapping_bodies() :
+		if body.has_method("take_damage") :
+			body.take_damage(dot_damage)
+		else :
+			print("body does not have take_damage method")

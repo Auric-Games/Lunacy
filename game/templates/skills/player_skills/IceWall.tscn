@@ -22,9 +22,17 @@ texture_repeat = 2
 scale = Vector2(2.22, 0.732)
 mesh = SubResource("QuadMesh_n3hhc")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="ColliderBox" type="Area2D" parent="."]
+collision_mask = 7
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColliderBox"]
+scale = Vector2(2.22035, 0.731523)
+shape = SubResource("RectangleShape2D_fw6xg")
+
+[node name="DamageBox" type="Area2D" parent="."]
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamageBox"]
 scale = Vector2(2.22035, 0.731523)
 shape = SubResource("RectangleShape2D_fw6xg")
 

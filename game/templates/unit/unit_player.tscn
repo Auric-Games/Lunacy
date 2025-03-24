@@ -39,7 +39,7 @@ size = Vector2(90, 117.5)
 y_sort_enabled = true
 scale = Vector2(0.2, 0.2)
 collision_layer = 2
-collision_mask = 7
+collision_mask = 3
 script = ExtResource("1_g1owm")
 
 [node name="WeaponContainer" type="Node2D" parent="."]
