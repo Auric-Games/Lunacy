@@ -8,6 +8,7 @@ signal destroyed()
 @onready var hurtbox: Area2D = get_node("DamageBox") :
 	set(value) :
 		for body in hurtbox.get_overlapping_bodies() :
+			print(body)
 			if body.has_method("take_damage") :
 				body.take_damage(immediate_damage)
 			else :
