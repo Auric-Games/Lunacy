@@ -15,6 +15,17 @@ run/main_scene="res://game/scenes/gameplay/lvl_test.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://game/assets/common/icon.svg"
 
+[autoload]
+
+Common="*res://game/src/global/singletons/common.gd"
+Controls="*res://game/src/global/singletons/controls.gd"
+Settings="*res://game/src/global/singletons/settings.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+
 [input]
 
 move_left={
@@ -60,6 +71,7 @@ skill_mode={
 2d_physics/layer_3="Enemies"
 2d_physics/layer_4="Interactions"
 2d_physics/layer_5="Props"
+2d_physics/layer_6="PlayerAbilities"
 2d_physics/layer_32="SoftCollisions"
 
 [physics]

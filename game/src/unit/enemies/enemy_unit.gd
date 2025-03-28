@@ -1,6 +1,7 @@
 class_name EnemyUnit extends NPCUnit
 
 @export var max_hp : int = 100
+@export var team : int = 1 # 1 for enemies, 0 for players
 
 @onready var SoftCollider : SoftCollision = $SoftCollision
 
@@ -16,7 +17,6 @@ func chase_player(delta : float) -> void:
 
 func take_damage(damage : int) -> void:
 	current_hp -= damage
-	print("Damaged: " + str(current_hp) + "/" + str(max_hp))
 	if (current_hp <= 0) :
 		queue_free()
 

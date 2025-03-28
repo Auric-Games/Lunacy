@@ -7,10 +7,11 @@
 [ext_resource type="Script" path="res://game/src/common/statemachine/generic_state_machine.gd" id="3_d7bro"]
 [ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/player_states/idle.gd" id="4_bcex7"]
 [ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/player_states/run.gd" id="5_0fry1"]
-[ext_resource type="Script" path="res://game/src/common/colliders/soft_collision.gd" id="5_c00qv"]
 [ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/player_states/skillmode.gd" id="9_uaxvo"]
 [ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/skills/SkillController.gd" id="9_vawtj"]
-[ext_resource type="Script" path="res://game/src/unit/components/player_skills/wizard/IceWall.gd" id="11_jso6e"]
+[ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/skills/ice_mage/Blink.gd" id="11_28lu6"]
+[ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/skills/ice_mage/IceWall.gd" id="11_jso6e"]
+[ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/skills/ice_mage/BuckShot.gd" id="12_q83pk"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3r5e6"]
 atlas = ExtResource("2_1xcmt")
@@ -27,19 +28,16 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ajdb6"]
-size = Vector2(90, 115)
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ghm0v"]
 size = Vector2(90, 117.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ybnqa"]
+radius = 30.0
 
 [node name="PlayerUnit" type="CharacterBody2D"]
 y_sort_enabled = true
 scale = Vector2(0.2, 0.2)
 collision_layer = 2
-collision_mask = 3
 script = ExtResource("1_g1owm")
 
 [node name="WeaponContainer" type="Node2D" parent="."]
@@ -60,42 +58,36 @@ texture_filter = 1
 position = Vector2(-2, -67)
 scale = Vector2(6, 6)
 sprite_frames = ExtResource("2_urnb0")
-animation = &"idle_east"
+animation = &"run_north"
 
-[node name="SoftCollision" type="Area2D" parent="." node_paths=PackedStringArray("collision_shape")]
-collision_layer = 2147483648
-collision_mask = 2147483648
-script = ExtResource("5_c00qv")
-collision_shape = NodePath("CollisionShape2D")
+[node name="HitBox" type="Area2D" parent="."]
+scale = Vector2(1, 1)
+collision_layer = 32
+collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SoftCollision"]
-position = Vector2(-5, -67.5)
-shape = SubResource("RectangleShape2D_ajdb6")
+[node name="Collider" type="CollisionShape2D" parent="HitBox"]
+position = Vector2(-5, -68.75)
+shape = SubResource("RectangleShape2D_ghm0v")
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 2
-collision_mask = 2147483665
+collision_mask = 4
 
 [node name="Collider" type="CollisionShape2D" parent="HurtBox"]
 position = Vector2(-5, -68.75)
 shape = SubResource("RectangleShape2D_ghm0v")
 
-[node name="IFrame_Timer" type="Timer" parent="HurtBox"]
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-5, -15)
+position = Vector2(-5, -27)
 shape = SubResource("CircleShape2D_ybnqa")
 
 [node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource("3_d7bro")
 
 [node name="Idle" type="Node" parent="StateMachine"]
-script = ExtResource("4_bcex7")
-can_attack = true
-
-[node name="Idle2" type="Node" parent="StateMachine"]
 script = ExtResource("4_bcex7")
 can_attack = true
 
@@ -111,5 +103,15 @@ script = ExtResource("9_uaxvo")
 [node name="SkillController" type="Node" parent="."]
 script = ExtResource("9_vawtj")
 
-[node name="PlayerSkill" type="Node" parent="SkillController"]
+[node name="IceWall" type="Node" parent="SkillController"]
 script = ExtResource("11_jso6e")
+
+[node name="Blink" type="Node" parent="SkillController"]
+script = ExtResource("11_28lu6")
+
+[node name="BuckShot" type="Node" parent="SkillController"]
+script = ExtResource("12_q83pk")
+
+[node name="TimerManager" type="Node" parent="."]
+
+[node name="IFrames" type="Timer" parent="TimerManager"]

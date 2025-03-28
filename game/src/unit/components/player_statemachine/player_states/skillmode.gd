@@ -1,6 +1,6 @@
 extends PlayerState
 
-@export var input_limit : int = 5
+@export var input_limit : int = 4
 @export_range(0, 1) var time_slowdown : float = 0.3 :
 	set(value) :
 		time_slowdown = value;
@@ -8,6 +8,9 @@ extends PlayerState
 var prev_state : String 
 var input_string : String
 var input_count : int
+
+@export var move_dir : Vector2 = Vector2.ZERO
+var last_dir = {}
 
 signal fizzled()
 signal combo_attempt(combo : String, prev_state : String)
@@ -19,6 +22,8 @@ func enter(_previous_state_path: String, _data := {}) -> void:
 	input_count = 0
 
 	Engine.time_scale = time_slowdown
+
+	can_attack = false;
 
 func exit() -> void:
 	Engine.time_scale = 1.0
@@ -41,3 +46,24 @@ func physics_update(delta : float) -> void:
 	if input_count >= input_limit :
 		fizzled.emit()
 		finished.emit(prev_state)
+
+	move_dir = Input.get_vector('move_left', 'move_right', 'move_up', 'move_down', 0.1)
+	player._target_velocity = move_dir * player.move_speed
+
+	player.move_and_slide()
+
+	match get_cardinal(move_dir) :
+		NORTH:
+			player.sprite_ref.play("run_north")
+			last_dir["animation"] = NORTH
+		EAST:
+			if (player.sprite_ref.flip_h == true) : player.sprite_ref.flip_h = false
+			player.sprite_ref.play("run_east")
+			last_dir["animation"] = EAST
+		SOUTH:
+			player.sprite_ref.play("run_south")
+			last_dir["animation"] = SOUTH
+		WEST:
+			if (player.sprite_ref.flip_h == false) : player.sprite_ref.flip_h = true
+			player.sprite_ref.play("run_east")
+			last_dir["animation"] = WEST
