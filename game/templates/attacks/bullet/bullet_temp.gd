@@ -29,8 +29,11 @@ func _physics_process(delta: float) -> void:
 		Animator.visible = true
 		Sprite.visible = false
 		for body in $HitBox.get_overlapping_bodies() :
+			if !body :
+				continue
 			if body.has_method("take_damage"):
 				body.take_damage(damage)
+				damage = 0
 				await Animator.animation_finished
-				queue_free()
+				delete()
 				

@@ -14,6 +14,8 @@ var last_dir = {}
 
 signal fizzled()
 signal combo_attempt(combo : String)
+signal combo_input(input : int)
+signal entered(toggle : bool)
 
 func enter(_previous_state_path: String, _data := {}) -> void:
 	print("entering skill mode")
@@ -24,24 +26,27 @@ func enter(_previous_state_path: String, _data := {}) -> void:
 	Engine.time_scale = time_slowdown
 
 	can_attack = false;
+	entered.emit(true)
 
 func exit() -> void:
 	Engine.time_scale = 1.0
+	entered.emit(false)
 
 func physics_update(delta : float) -> void:
 	if Input.is_action_just_pressed('skill_mode') :
 		if (input_count != 0) :
-			print("processing combo" + input_string) 
+			print("processing combo" + input_string)
+			combo_input.emit(0) 
 			combo_attempt.emit(input_string)
 		finished.emit(prev_state)
 	elif Input.is_action_just_pressed('attack_one') :
 		input_count += 1
 		input_string += "L"
-		print(input_string)
+		combo_input.emit(1)
 	elif Input.is_action_just_pressed('attack_two'):
 		input_count += 1
 		input_string += "R"
-		print(input_string)
+		combo_input.emit(2)
 	
 	if input_count >= input_limit :
 		combo_attempt.emit(input_string)

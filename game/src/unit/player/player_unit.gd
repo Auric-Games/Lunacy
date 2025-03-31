@@ -11,7 +11,20 @@ class_name PlayerUnit extends BaseUnit
 
 #@onready var statemachine : StateMachine = $StateMachine
 
+@export var max_mp : int = 200 :
+	set(value) :
+		max_mp = value
+@export var current_mp : int = 200 :
+	set(value) :
+		mp_changed.emit()
+		current_mp = value
+
+@export var mana_regen : int = 5
+
 signal player_died
+signal mp_changed
+
+var frame_counter = 0;
 
 func _ready() -> void :
 	if (UnitData != null) :
@@ -20,6 +33,11 @@ func _ready() -> void :
 
 func _physics_process(delta: float) -> void:
 	camera_ref.follow_mouse()
+
+	if current_mp != max_mp :
+		regenerate_mp()
+	frame_counter += 1
+
 
 func _load_data(data : Resource) -> void :
 	super._load_data(data)
@@ -35,3 +53,7 @@ func take_damage(value : int) -> void :
 		player_died.emit("Dead")
 		print("Player Died")
 	# run death script / destructor
+
+func regenerate_mp() -> void :
+	current_mp += mana_regen
+	current_mp = clamp(current_mp, 0, max_mp)

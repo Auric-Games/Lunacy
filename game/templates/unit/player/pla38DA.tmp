@@ -1,0 +1,51 @@
+[gd_scene load_steps=3 format=3 uid="uid://trbupub18prg"]
+
+[ext_resource type="Script" path="res://game/src/unit/player/player_camera.gd" id="1_86jyl"]
+[ext_resource type="Texture2D" uid="uid://ddsk6d725dgkm" path="res://prototypes/assets/common/kenney_input-prompts-pixel-16/Tiles/tile_0076.png" id="2_lc464"]
+
+[node name="Camera" type="Camera2D"]
+zoom = Vector2(2.5, 2.5)
+script = ExtResource("1_86jyl")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="ComboGrid" type="GridContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -28.0
+offset_top = 188.0
+offset_right = 28.0
+offset_bottom = 204.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 3
+
+[node name="One" type="TextureRect" parent="Control/ComboGrid"]
+layout_mode = 2
+texture = ExtResource("2_lc464")
+
+[node name="Two" type="TextureRect" parent="Control/ComboGrid"]
+layout_mode = 2
+texture = ExtResource("2_lc464")
+
+[node name="Three" type="TextureRect" parent="Control/ComboGrid"]
+layout_mode = 2
+texture = ExtResource("2_lc464")
+
+[node name="ResourceGrid" type="GridContainer" parent="Control"]
+layout_mode = 2
+offset_left = -28.0
+offset_top = 206.0
+offset_right = -12.0
+offset_bottom = 206.0
+
+[node name="HP" type="ProgressBar" parent="Control/ResourceGrid"]
+layout_mode = 2
+show_percentage = false
+
+[node name="MP" type="ProgressBar" parent="Control/ResourceGrid"]
+layout_mode = 2

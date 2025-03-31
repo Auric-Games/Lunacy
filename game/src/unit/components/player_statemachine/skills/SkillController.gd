@@ -27,15 +27,15 @@ func physics_process(delta: float) -> void:
 	pass
 
 func process_combo(combo : String) -> void:
-	print(skill_list)
-	print("combo: " + combo)
+	#print(skill_list)
+	#print("combo: " + combo)
 	if skill_list.has(combo) :
 		timer.start()
 		print("casting skill: " + combo)
 		skill_list[combo].start()
 
 func fizzle() -> void:
-	print("fizzled")
+	#print("fizzled")
 	mana_modifier += mana_penalty * 3
 	timer.start()
 
