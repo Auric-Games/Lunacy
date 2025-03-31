@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://cqvlkrwim124x"]
+
+[ext_resource type="Script" path="res://game/templates/attacks/telefrag/ice_telefrag.gd" id="1_gwhjb"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_m4ggr"]
+radius = 15.0
+height = 30.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mjhms"]
+radius = 15.0
+
+[node name="IceTelefrag" type="Node2D"]
+script = ExtResource("1_gwhjb")
+
+[node name="temp" type="MeshInstance2D" parent="."]
+mesh = SubResource("SphereMesh_m4ggr")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_mjhms")
+
+[node name="Timer" type="Timer" parent="."]

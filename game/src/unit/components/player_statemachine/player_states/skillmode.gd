@@ -1,6 +1,6 @@
 extends PlayerState
 
-@export var input_limit : int = 4
+@export var input_limit : int = 3
 @export_range(0, 1) var time_slowdown : float = 0.3 :
 	set(value) :
 		time_slowdown = value;
@@ -13,7 +13,7 @@ var input_count : int
 var last_dir = {}
 
 signal fizzled()
-signal combo_attempt(combo : String, prev_state : String)
+signal combo_attempt(combo : String)
 
 func enter(_previous_state_path: String, _data := {}) -> void:
 	print("entering skill mode")
@@ -32,7 +32,7 @@ func physics_update(delta : float) -> void:
 	if Input.is_action_just_pressed('skill_mode') :
 		if (input_count != 0) :
 			print("processing combo" + input_string) 
-			combo_attempt.emit(input_string, )
+			combo_attempt.emit(input_string)
 		finished.emit(prev_state)
 	elif Input.is_action_just_pressed('attack_one') :
 		input_count += 1
@@ -44,7 +44,7 @@ func physics_update(delta : float) -> void:
 		print(input_string)
 	
 	if input_count >= input_limit :
-		fizzled.emit()
+		combo_attempt.emit(input_string)
 		finished.emit(prev_state)
 
 	move_dir = Input.get_vector('move_left', 'move_right', 'move_up', 'move_down', 0.1)

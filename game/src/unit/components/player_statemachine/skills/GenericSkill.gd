@@ -10,15 +10,9 @@ var mana_modifier : int = 0
 
 @onready var timer : Timer
 @onready var player : PlayerUnit = get_parent().get_parent()
-var tween : Tween = create_tween()
-
 
 func reset_mana() -> void :
 	mana_modifier = 0
-
-func reset_tween() -> void :
-	tween.kill()
-	tween = create_tween()
 
 func _ready() -> void:
 	await owner.ready

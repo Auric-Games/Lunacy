@@ -1,7 +1,7 @@
 extends PlayerSkill
 
 @export var bullet_count : int = 5 # Number of bullets to spawn
-@export var bullet_spread : float = PI/3
+@export var bullet_spread : float = PI/6
 
 func _ready() -> void:
 	super()

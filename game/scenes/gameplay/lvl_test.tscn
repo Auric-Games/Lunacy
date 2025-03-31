@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=4 uid="uid://bl4meto2e3auk"]
+[gd_scene load_steps=12 format=4 uid="uid://bl4meto2e3auk"]
 
-[ext_resource type="Script" path="res://game/scenes/gameplay/temporary_setup.gd" id="1_4asp3"]
-[ext_resource type="Texture2D" uid="uid://die0gtd4nttmr" path="res://prototypes/assets/Tilemap/tilemap_packed.png" id="1_7x5qq"]
+[ext_resource type="Script" path="res://game/scenes/gameplay/map_setup.gd" id="1_4asp3"]
+[ext_resource type="Texture2D" uid="uid://die0gtd4nttmr" path="res://prototypes/assets/tilemap/tilemap_packed.png" id="1_7x5qq"]
 [ext_resource type="PackedScene" uid="uid://cxi4amc8hn7hr" path="res://game/templates/unit/unit_player.tscn" id="2_qpfpt"]
 [ext_resource type="PackedScene" uid="uid://djksrtn3til2p" path="res://game/templates/unit/unit_enemy.tscn" id="3_odufv"]
+[ext_resource type="Script" path="res://game/src/unit/player/player_camera.gd" id="4_heejy"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l18qj"]
 texture = ExtResource("1_7x5qq")
@@ -190,9 +191,15 @@ shape = SubResource("RectangleShape2D_ww8nk")
 position = Vector2(87, 308)
 shape = SubResource("RectangleShape2D_ixa2o")
 
-[node name="PlayerUnit" parent="." groups=["Player"] instance=ExtResource("2_qpfpt")]
+[node name="PlayerContainer" type="Node" parent="."]
+
+[node name="PlayerUnit" parent="PlayerContainer" groups=["Player"] instance=ExtResource("2_qpfpt")]
 position = Vector2(589, 312)
-move_speed = 500.0
+move_speed = 200.0
+
+[node name="Camera" type="Camera2D" parent="PlayerContainer"]
+zoom = Vector2(2.5, 2.5)
+script = ExtResource("4_heejy")
 
 [node name="Enemies" type="Node" parent="."]
 
