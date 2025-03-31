@@ -61,7 +61,6 @@ sprite_frames = ExtResource("2_urnb0")
 animation = &"run_north"
 
 [node name="HitBox" type="Area2D" parent="."]
-scale = Vector2(1, 1)
 collision_layer = 32
 collision_mask = 0
 
