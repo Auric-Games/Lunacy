@@ -19,6 +19,9 @@ func start() -> void :
 		target = mouse_pos
 	
 	var tween : Tween = create_tween()
+	var attack = template_node.instantiate()
+	attack.position = target
+	
 	tween.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 
 	player.get_node("HurtBox").get_node("Collider").disabled = true; #move all this logic into iframe logic
@@ -28,7 +31,8 @@ func start() -> void :
 	#play teleport animation
 	tween.tween_property(player, "global_position", target, 0.5)
 	await tween.finished
-	template_node.instantiate().global_position = target
+
+	get_tree().current_scene.call_deferred("add_child", attack)
 
 	player.get_node("HurtBox").get_node("Collider").disabled = false;
 	player.get_node("HitBox").get_node("Collider").disabled = true;

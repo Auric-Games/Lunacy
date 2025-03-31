@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var speed : float = 7.5
+@export var speed : float = 6
 @export var damage = 20
 const PLAYER : int = 0
 const ENEMY : int = 1
@@ -10,8 +10,13 @@ const ENEMY : int = 1
 var direction : Vector2 = Vector2.ZERO
 
 @onready var HitBox_Ref : Area2D = $HitBox
+@onready var Sprite : Sprite2D = $BulletSprite
+@onready var Animator : AnimatedSprite2D = $Destroyed
 
 func _ready() -> void:
+	Sprite.visible = true
+	Animator.visible = false
+	Animator.stop()
 	get_node("ScreenNotifier").connect("screen_exited", delete)
 
 func delete() -> void:
@@ -20,11 +25,12 @@ func delete() -> void:
 func _physics_process(delta: float) -> void:
 	position += direction * speed
 	if ($HitBox.has_overlapping_areas()) :
+		Animator.play("default")
+		Animator.visible = true
+		Sprite.visible = false
 		for body in $HitBox.get_overlapping_bodies() :
-			print("Hit detected with body: " + str(body))
-			if body.has_method("take_damage") :
+			if body.has_method("take_damage"):
 				body.take_damage(damage)
-				self.queue_free()
-			else:
-				print("Body does not have take_damage method")
-			
+				await Animator.animation_finished
+				queue_free()
+				

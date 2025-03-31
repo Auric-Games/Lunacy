@@ -145,16 +145,16 @@ texture = ExtResource("1_7x5qq")
 sources/0 = SubResource("TileSetAtlasSource_l18qj")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fsrft"]
-size = Vector2(1007, 105)
+size = Vector2(1007, 414)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6484o"]
-size = Vector2(1019, 31)
+size = Vector2(1019, 444)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ww8nk"]
-size = Vector2(37.4675, 631.5)
+size = Vector2(438.464, 1317)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ixa2o"]
-size = Vector2(24, 586)
+size = Vector2(606, 1386)
 
 [node name="LvlTest" type="Node2D"]
 y_sort_enabled = true
@@ -176,19 +176,19 @@ tile_map_data = PackedByteArray("AAADAAEAAQAAAAgAAAADAAIAAQAAAAkAAAAEAAIAAQABAAk
 [node name="StaticBody2D" type="StaticBody2D" parent="Map"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Map/StaticBody2D"]
-position = Vector2(586.5, 626.5)
+position = Vector2(586.5, 781)
 shape = SubResource("RectangleShape2D_fsrft")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Map/StaticBody2D"]
-position = Vector2(584.5, 22.5)
+position = Vector2(584.5, -184)
 shape = SubResource("RectangleShape2D_6484o")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="Map/StaticBody2D"]
-position = Vector2(1073.27, 324.25)
+position = Vector2(1273.77, 251.5)
 shape = SubResource("RectangleShape2D_ww8nk")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="Map/StaticBody2D"]
-position = Vector2(87, 308)
+position = Vector2(-204, 286)
 shape = SubResource("RectangleShape2D_ixa2o")
 
 [node name="PlayerContainer" type="Node" parent="."]

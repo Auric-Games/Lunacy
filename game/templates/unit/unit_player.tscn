@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://cxi4amc8hn7hr"]
+[gd_scene load_steps=19 format=3 uid="uid://cxi4amc8hn7hr"]
 
 [ext_resource type="Script" path="res://game/src/unit/player/player_unit.gd" id="1_g1owm"]
 [ext_resource type="Texture2D" uid="uid://np7cj3xx2j6l" path="res://prototypes/assets/playerSprites_ [version 1.0]/sword_ [iron].png" id="2_1xcmt"]
@@ -7,11 +7,13 @@
 [ext_resource type="Script" path="res://game/src/common/statemachine/generic_state_machine.gd" id="3_d7bro"]
 [ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/player_states/idle.gd" id="4_bcex7"]
 [ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/player_states/run.gd" id="5_0fry1"]
+[ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/player_states/dead.gd" id="9_qquf2"]
 [ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/player_states/skillmode.gd" id="9_uaxvo"]
 [ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/skills/SkillController.gd" id="9_vawtj"]
 [ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/skills/ice_mage/Blink.gd" id="11_28lu6"]
 [ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/skills/ice_mage/IceWall.gd" id="11_jso6e"]
 [ext_resource type="Script" path="res://game/src/unit/components/player_statemachine/skills/ice_mage/BuckShot.gd" id="12_q83pk"]
+[ext_resource type="PackedScene" uid="uid://cgbqq0yxxa72i" path="res://game/templates/common/HP_Indicator.tscn" id="13_dika5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3r5e6"]
 atlas = ExtResource("2_1xcmt")
@@ -59,19 +61,11 @@ texture_filter = 1
 position = Vector2(-1.8, -60.3)
 scale = Vector2(5.4, 5.4)
 sprite_frames = ExtResource("2_urnb0")
-animation = &"idle_south"
-
-[node name="HitBox" type="Area2D" parent="."]
-visible = false
-collision_layer = 32
-collision_mask = 0
-
-[node name="Collider" type="CollisionShape2D" parent="HitBox"]
-position = Vector2(-5, -68.75)
-shape = SubResource("RectangleShape2D_ghm0v")
+animation = &"die"
+frame = 2
+frame_progress = 1.0
 
 [node name="HurtBox" type="Area2D" parent="."]
-visible = false
 collision_layer = 2
 collision_mask = 4
 
@@ -99,6 +93,9 @@ can_attack = true
 [node name="SkillMode" type="Node" parent="StateMachine"]
 script = ExtResource("9_uaxvo")
 
+[node name="Dead" type="Node" parent="StateMachine"]
+script = ExtResource("9_qquf2")
+
 [node name="SkillController" type="Node" parent="."]
 script = ExtResource("9_vawtj")
 
@@ -114,3 +111,13 @@ script = ExtResource("12_q83pk")
 [node name="TimerManager" type="Node" parent="."]
 
 [node name="IFrames" type="Timer" parent="TimerManager"]
+
+[node name="HpIndicator" parent="." instance=ExtResource("13_dika5")]
+position = Vector2(0, 15)
+scale = Vector2(0.5, 0.5)
+
+[node name="HurtTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[connection signal="player_died" from="." to="StateMachine" method="_transition_to_next_state"]

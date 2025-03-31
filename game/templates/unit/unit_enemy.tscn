@@ -1,12 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://djksrtn3til2p"]
+[gd_scene load_steps=11 format=3 uid="uid://djksrtn3til2p"]
 
 [ext_resource type="Script" path="res://game/src/unit/enemies/enemy_unit.gd" id="1_tid05"]
 [ext_resource type="Script" path="res://game/src/common/colliders/soft_collision.gd" id="2_u6tsn"]
 [ext_resource type="Texture2D" uid="uid://dltesnm1oesc7" path="res://game/assets/common/icon.svg" id="2_v8lnh"]
 [ext_resource type="Script" path="res://game/src/common/statemachine/generic_state_machine.gd" id="3_6rqk0"]
 [ext_resource type="Script" path="res://game/src/common/statemachine/generic_state.gd" id="5_rr68h"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_d70ar"]
+[ext_resource type="PackedScene" uid="uid://cgbqq0yxxa72i" path="res://game/templates/common/HP_Indicator.tscn" id="6_fxeub"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kkmeb"]
 atlas = ExtResource("2_v8lnh")
@@ -23,6 +22,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d70ar"]
+size = Vector2(24, 24)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lb2t3"]
 
 [node name="EnemyTemplate" type="CharacterBody2D"]
@@ -31,7 +33,20 @@ collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_tid05")
 
+[node name="SpriteController" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_5vme7")
+
+[node name="HurtBox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="Collider" type="CollisionShape2D" parent="HurtBox"]
+shape = SubResource("RectangleShape2D_d70ar")
+
 [node name="SoftCollision" type="Area2D" parent="." node_paths=PackedStringArray("collision_shape")]
+visible = false
 collision_layer = 2147483652
 collision_mask = 2147483648
 script = ExtResource("2_u6tsn")
@@ -40,12 +55,8 @@ collision_shape = NodePath("Collider")
 [node name="Collider" type="CollisionShape2D" parent="SoftCollision"]
 shape = SubResource("RectangleShape2D_d70ar")
 
-[node name="SpriteController" type="AnimatedSprite2D" parent="."]
-y_sort_enabled = true
-scale = Vector2(0.2, 0.2)
-sprite_frames = SubResource("SpriteFrames_5vme7")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("RectangleShape2D_lb2t3")
 
 [node name="StateMachine" type="Node" parent="."]
@@ -53,3 +64,14 @@ script = ExtResource("3_6rqk0")
 
 [node name="State" type="Node" parent="StateMachine"]
 script = ExtResource("5_rr68h")
+
+[node name="HpIndicator" parent="." instance=ExtResource("6_fxeub")]
+position = Vector2(0, 17)
+scale = Vector2(0.15, 0.15)
+
+[node name="HurtTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="hp_changed" from="." to="HpIndicator" method="update_bar"]
+[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
+[connection signal="body_exited" from="HurtBox" to="." method="_on_hurt_box_body_exited"]

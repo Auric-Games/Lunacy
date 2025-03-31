@@ -1,0 +1,26 @@
+[gd_resource type="SpriteFrames" load_steps=5 format=3 uid="uid://drrd1nj1k2sag"]
+
+[ext_resource type="Texture2D" uid="uid://bixh0pa7ddxqa" path="res://prototypes/assets/attacks/ice_shard/I5050-8.png" id="2_so7yq"]
+[ext_resource type="Texture2D" uid="uid://bn5juafa2wo0n" path="res://prototypes/assets/attacks/ice_shard/I5050-9.png" id="3_q0ipr"]
+[ext_resource type="Texture2D" uid="uid://bhibv7n8strb" path="res://prototypes/assets/attacks/ice_shard/I5050-10.png" id="4_nc2a3"]
+[ext_resource type="Texture2D" uid="uid://cwumb1hpoial3" path="res://prototypes/assets/attacks/ice_shard/I5050-11.png" id="5_uebv1"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_so7yq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_q0ipr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_nc2a3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_uebv1")
+}],
+"loop": false,
+"name": &"default",
+"speed": 20.0
+}]
