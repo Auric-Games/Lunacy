@@ -4,56 +4,58 @@ class_name PlayerUnit extends BaseUnit
 # implement delta
 @export var UnitData : Resource 
 
-@export var camera_ref : Camera2D
+@onready var camera_ref : Camera2D = $Camera
 @onready var sprite_ref : AnimatedSprite2D = $SpriteController
 @onready var weapon_ref : Node2D = $WeaponContainer
-@onready var hurt_timer : Timer = $HurtTimer
-
-#@onready var statemachine : StateMachine = $StateMachine
-
-@export var max_mp : int = 200 :
-	set(value) :
-		max_mp = value
-@export var current_mp : int = 200 :
-	set(value) :
-		mp_changed.emit()
-		current_mp = value
-
-@export var mana_regen : int = 5
-
-signal player_died
-signal mp_changed
-
-var frame_counter = 0;
+@onready var statemachine : StateMachine = $StateMachine
 
 func _ready() -> void :
 	if (UnitData != null) :
 		_load_data(UnitData)
-	print (hurt_timer.name)
+	
 
-func _physics_process(delta: float) -> void:
-	camera_ref.follow_mouse()
-
-	if current_mp != max_mp :
-		regenerate_mp()
-	frame_counter += 1
-
+func _process(_delta: float) -> void :
+#	handle_movement_input()
+	handle_mouse_input()
 
 func _load_data(data : Resource) -> void :
 	super._load_data(data)
 	pass
 
-func take_damage(value : int) -> void :
-	if hurt_timer.is_stopped() :
-		hurt_timer.start()
-		sprite_ref.play("hurt")
-		current_hp -= value
-	if (current_hp <= 0) :
-		$CollisionShape2D.disabled = true
-		player_died.emit("Dead")
-		print("Player Died")
-	# run death script / destructor
+#func handle_movement_input() -> void :
+#	var move_dir : Vector2 = Input.get_vector('move_left', 'move_right', 'move_up', 'move_down', 0.1)
+#	_target_velocity = move_dir * move_speed
+#
+#	move_and_slide()
 
-func regenerate_mp() -> void :
-	current_mp += mana_regen
-	current_mp = clamp(current_mp, 0, max_mp)
+func handle_mouse_input() -> void :
+	# need an if statement checking for input type handling (controller or mouse+keyboard) to ignore mouse input until mouse+keybaord enabled
+	# need to implement variable camera speed based on mouse distance from center of viewport
+
+	const INPUT_RADIUS : float = 200
+	const CAMERA_BOUND : float = 400 
+	const CAMERA_SPEED : float = 0.02 # 0 -> 1.0
+
+	var mouse_pos : Vector2 = get_global_mouse_position()
+	var mouse_delta : Vector2 = mouse_pos - global_position
+
+	if (mouse_delta.length() >= INPUT_RADIUS) :
+		var normalized_bounds = mouse_delta.normalized() * CAMERA_BOUND
+		var target_pos = clamp(mouse_delta, -normalized_bounds, normalized_bounds)
+
+		camera_ref.position = camera_ref.position.lerp(target_pos, CAMERA_SPEED)
+	else:
+		camera_ref.position = camera_ref.position.lerp(Vector2.ZERO, CAMERA_SPEED)
+
+var _atk_counter : int = 0
+func do_attack() -> void :
+	if statemachine.state.can_attack :
+		match _atk_counter :
+			0 :
+				pass
+			_ :	
+				print("ERROR : UNEXPECTED NORMAL ATTACK COUNT DETECTED")
+		if (_atk_counter >= 3) :
+			_atk_counter = 0
+		else :
+			_atk_counter+=1
