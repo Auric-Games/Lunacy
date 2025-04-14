@@ -4,6 +4,14 @@ class_name PlayerUnit extends BaseUnit
 # implement delta
 @export var UnitData : Resource 
 
+signal mp_changed
+
+@export var max_map : int = 100
+@export var current_mp : int = 100 :
+	set(value) :
+		current_mp = value
+		mp_changed.emit()
+
 @onready var camera_ref : Camera2D = $Camera
 @onready var sprite_ref : AnimatedSprite2D = $SpriteController
 @onready var weapon_ref : Node2D = $WeaponContainer
@@ -13,7 +21,6 @@ func _ready() -> void :
 	if (UnitData != null) :
 		_load_data(UnitData)
 	
-
 func _process(_delta: float) -> void :
 #	handle_movement_input()
 	handle_mouse_input()

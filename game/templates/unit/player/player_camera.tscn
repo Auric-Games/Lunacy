@@ -28,10 +28,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -960.0
-offset_top = -540.0
-offset_right = 920.0
-offset_bottom = 500.0
+offset_left = -941.0
+offset_top = -531.0
+offset_right = 939.0
+offset_bottom = 509.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.129412, 0.129412, 0.129412, 0)
@@ -42,26 +42,26 @@ anchors_preset = 0
 
 [node name="ComboGrid" type="GridContainer" parent="Control"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
 offset_left = -28.0
-offset_top = 188.0
+offset_top = 184.0
 offset_right = 28.0
-offset_bottom = 204.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_bottom = 200.0
+scale = Vector2(2, 2)
+pivot_offset = Vector2(28.0625, 7.9375)
 columns = 3
 
 [node name="One" type="TextureRect" parent="Control/ComboGrid"]
+texture_filter = 3
 layout_mode = 2
 texture = ExtResource("2_lc464")
 
 [node name="Two" type="TextureRect" parent="Control/ComboGrid"]
+texture_filter = 3
 layout_mode = 2
 texture = ExtResource("2_lc464")
 
 [node name="Three" type="TextureRect" parent="Control/ComboGrid"]
+texture_filter = 1
 layout_mode = 2
 texture = ExtResource("2_lc464")
 
