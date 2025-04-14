@@ -13,7 +13,10 @@ func _ready() -> void:
 	player_ref = get_parent().get_node("PlayerUnit")
 	position = player_ref.position
 <<<<<<< HEAD
+<<<<<<< HEAD
 	print("moved_to_player")
+=======
+>>>>>>> parent of 26fa6eb (a lot)
 =======
 >>>>>>> parent of 26fa6eb (a lot)
 

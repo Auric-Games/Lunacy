@@ -26,6 +26,9 @@ signal mp_changed
 #@onready var statemachine : StateMachine = $StateMachine
 
 signal player_died
+<<<<<<< HEAD
+>>>>>>> parent of 26fa6eb (a lot)
+=======
 >>>>>>> parent of 26fa6eb (a lot)
 
 func _ready() -> void :
@@ -41,6 +44,9 @@ func _process(_delta: float) -> void :
 
 func _physics_process(delta: float) -> void:
 	camera_ref.follow_mouse()
+<<<<<<< HEAD
+>>>>>>> parent of 26fa6eb (a lot)
+=======
 >>>>>>> parent of 26fa6eb (a lot)
 
 func _load_data(data : Resource) -> void :
@@ -90,4 +96,7 @@ func take_damage(value : int) -> void :
 		player_died.emit("Dead")
 		print("Player Died")
 	# run death script / destructor
+<<<<<<< HEAD
+>>>>>>> parent of 26fa6eb (a lot)
+=======
 >>>>>>> parent of 26fa6eb (a lot)
