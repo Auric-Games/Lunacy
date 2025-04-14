@@ -22,18 +22,12 @@ func _ready() -> void :
 		_load_data(UnitData)
 	
 func _process(_delta: float) -> void :
-#	handle_movement_input()
-	handle_mouse_input()
+	#handle_mouse_input()
+	pass
 
 func _load_data(data : Resource) -> void :
 	super._load_data(data)
 	pass
-
-#func handle_movement_input() -> void :
-#	var move_dir : Vector2 = Input.get_vector('move_left', 'move_right', 'move_up', 'move_down', 0.1)
-#	_target_velocity = move_dir * move_speed
-#
-#	move_and_slide()
 
 func handle_mouse_input() -> void :
 	# need an if statement checking for input type handling (controller or mouse+keyboard) to ignore mouse input until mouse+keybaord enabled
@@ -59,7 +53,7 @@ func do_attack() -> void :
 	if statemachine.state.can_attack :
 		match _atk_counter :
 			0 :
-				pass
+				pass 
 			_ :	
 				print("ERROR : UNEXPECTED NORMAL ATTACK COUNT DETECTED")
 		if (_atk_counter >= 3) :

@@ -9,5 +9,6 @@ func _ready() -> void:
 
 func update_bar() -> void :
 	hp_bar.value = float(get_parent().current_hp) / get_parent().max_hp * 100
+	print("HP Bar Updated: ", get_parent().current_hp, "/", get_parent().max_hp, ", ", hp_bar.value)
 	
 	

@@ -13,23 +13,8 @@ func _ready() -> void:
 	template_node = preload("res://game/templates/skills/player_skills/IceWall.tscn")
 
 	combo_string = "LLR"
-	timer = Timer.new()
-	timer.one_shot = true
-	timer.wait_time = 4
-
-	mana_cost = 20
 
 func start() -> void :
-	if player.current_mp > mana_cost + mana_modifier :
-		player.current_mp -= mana_cost + mana_modifier
-		mana_modifier += mana_penalty
-		timer.start()
-
-		do_skill()
-
-
-
-func do_skill() -> void :
 	var mouse_pos : Vector2 = player.get_global_mouse_position()
 	var mouse_delta : Vector2 = mouse_pos - player.global_position
 	var target : Vector2 = Vector2.ZERO
@@ -44,3 +29,4 @@ func do_skill() -> void :
 
 	wall.position = target
 	wall.rotation = player.global_position.direction_to(target).angle() + PI/2
+

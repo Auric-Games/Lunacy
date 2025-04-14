@@ -38,10 +38,6 @@ scale = Vector2(2.22035, 0.731523)
 shape = SubResource("RectangleShape2D_fw6xg")
 
 [node name="HpIndicator" parent="." instance=ExtResource("3_6wf3e")]
-position = Vector2(0, -5.33333)
-scale = Vector2(0.04, 0.04)
-
-[node name="ProgressBar" parent="HpIndicator" index="0"]
-metadata/_edit_use_anchors_ = true
+position = Vector2(0, -9)
 
 [editable path="HpIndicator"]

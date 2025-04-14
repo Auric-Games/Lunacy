@@ -9,13 +9,7 @@ func _ready() -> void:
 	template_node = preload("res://game/templates/attacks/bullet/bullet_temp.tscn")
 	combo_string = "LLL"
 
-	timer = Timer.new()
-	timer.one_shot = true
-	timer.wait_time = 4
-
-	mana_cost = 30
-
-func do_skill() -> void :
+func start() -> void :
 	var mouse_pos : Vector2 = player.get_global_mouse_position()
 	var mouse_delta : Vector2 = mouse_pos - player.global_position
 

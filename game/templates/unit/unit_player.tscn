@@ -104,6 +104,7 @@ script = ExtResource("11_jso6e")
 
 [node name="Blink" type="Node" parent="SkillController"]
 script = ExtResource("11_28lu6")
+mana_cost = null
 
 [node name="BuckShot" type="Node" parent="SkillController"]
 script = ExtResource("12_q83pk")

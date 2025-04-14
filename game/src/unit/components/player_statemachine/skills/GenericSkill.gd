@@ -5,7 +5,6 @@ class_name PlayerSkill extends Node
 
 @export var cooldown : float = 5.0
 @export var mana_penalty : int = 5
-@export var mana_cost : int = 10
 
 var mana_modifier : int = 0
 
@@ -23,17 +22,6 @@ func _ready() -> void:
 	timer.autostart = false
 	timer.one_shot = true
 	timer.timeout.connect(reset_mana)
-
-func start() -> void : 
-	if player.current_mp > mana_cost + mana_modifier :
-		player.current_mp -= mana_cost + mana_modifier
-		mana_modifier += mana_penalty
-		timer.start()
-
-		do_skill()
-
-func do_skill() -> void :
-	pass
 
 func _exit_tree() -> void:
 	timer.free()

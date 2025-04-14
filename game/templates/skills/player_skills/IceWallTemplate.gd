@@ -7,7 +7,6 @@ var dot_damage : int = 5
 var timer : Timer = Timer.new()
 
 signal destroyed()
-signal hp_changed
 
 @onready var hurtbox: Area2D = get_node("DamageBox") :
 	set(value) :
@@ -32,7 +31,6 @@ func initialize(hp : int) -> void:
 	update_hp_indicator()
 
 func _ready() -> void:
-	hp_changed.connect(update_hp_indicator)
 	timer.one_shot = true
 	timer.wait_time = 0.5
 	timer.start()
