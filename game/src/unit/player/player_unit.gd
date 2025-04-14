@@ -4,6 +4,7 @@ class_name PlayerUnit extends BaseUnit
 # implement delta
 @export var UnitData : Resource 
 
+<<<<<<< HEAD
 signal mp_changed
 
 @export var max_map : int = 100
@@ -16,19 +17,37 @@ signal mp_changed
 @onready var sprite_ref : AnimatedSprite2D = $SpriteController
 @onready var weapon_ref : Node2D = $WeaponContainer
 @onready var statemachine : StateMachine = $StateMachine
+=======
+@export var camera_ref : Camera2D
+@onready var sprite_ref : AnimatedSprite2D = $SpriteController
+@onready var weapon_ref : Node2D = $WeaponContainer
+@onready var hurt_timer : Timer = $HurtTimer
+
+#@onready var statemachine : StateMachine = $StateMachine
+
+signal player_died
+>>>>>>> parent of 26fa6eb (a lot)
 
 func _ready() -> void :
 	if (UnitData != null) :
 		_load_data(UnitData)
+<<<<<<< HEAD
 	
 func _process(_delta: float) -> void :
 	#handle_mouse_input()
 	pass
+=======
+	print (hurt_timer.name)
+
+func _physics_process(delta: float) -> void:
+	camera_ref.follow_mouse()
+>>>>>>> parent of 26fa6eb (a lot)
 
 func _load_data(data : Resource) -> void :
 	super._load_data(data)
 	pass
 
+<<<<<<< HEAD
 func handle_mouse_input() -> void :
 	# need an if statement checking for input type handling (controller or mouse+keyboard) to ignore mouse input until mouse+keybaord enabled
 	# need to implement variable camera speed based on mouse distance from center of viewport
@@ -60,3 +79,15 @@ func do_attack() -> void :
 			_atk_counter = 0
 		else :
 			_atk_counter+=1
+=======
+func take_damage(value : int) -> void :
+	if hurt_timer.is_stopped() :
+		hurt_timer.start()
+		sprite_ref.play("hurt")
+		current_hp -= value
+	if (current_hp <= 0) :
+		$CollisionShape2D.disabled = true
+		player_died.emit("Dead")
+		print("Player Died")
+	# run death script / destructor
+>>>>>>> parent of 26fa6eb (a lot)
