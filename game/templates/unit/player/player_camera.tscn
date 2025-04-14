@@ -46,26 +46,32 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -28.0
-offset_top = 188.0
+offset_top = 176.0
 offset_right = 28.0
-offset_bottom = 204.0
+offset_bottom = 192.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(2, 2)
+pivot_offset = Vector2(28, 8)
 columns = 3
 
 [node name="One" type="TextureRect" parent="Control/ComboGrid"]
+texture_filter = 1
 layout_mode = 2
 texture = ExtResource("2_lc464")
 
 [node name="Two" type="TextureRect" parent="Control/ComboGrid"]
+texture_filter = 1
 layout_mode = 2
 texture = ExtResource("2_lc464")
 
 [node name="Three" type="TextureRect" parent="Control/ComboGrid"]
+texture_filter = 1
 layout_mode = 2
 texture = ExtResource("2_lc464")
 
 [node name="TextureRect" type="TextureRect" parent="Control"]
+visible = false
 layout_mode = 2
 offset_left = -330.139
 offset_top = -204.948
@@ -76,6 +82,7 @@ scale = Vector2(0.903171, 0.903171)
 texture = ExtResource("2_g6a23")
 
 [node name="ResourceGrid" type="GridContainer" parent="Control"]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -24,7 +24,7 @@ func _ready() -> void:
 	get_parent().get_node("PlayerUnit/StateMachine/SkillMode").combo_input.connect(update_combo)
 	get_parent().get_node("PlayerUnit/StateMachine/SkillMode").combo_attempt.connect(combo_end)
 	timer = Timer.new()
-	timer.wait_time = 3
+	timer.wait_time = 1
 	timer.one_shot = true
 
 	timer.timeout.connect(reset_combo)
@@ -32,6 +32,8 @@ func _ready() -> void:
 
 	get_parent().get_node("PlayerUnit").hp_changed.connect(update_hp)
 	get_parent().get_node("PlayerUnit").mp_changed.connect(update_mp)
+
+	reset_combo()
 
 
 func _process(delta: float) -> void:
@@ -68,8 +70,12 @@ func update_combo(input : int) -> void :
 			if !timer.is_stopped() :
 				timer.stop()
 				reset_combo()
-			if input == 1 : combo_container.get_child(combo_count).texture = LEFT_CLICK
-			else : combo_container.get_child(combo_count).texture = RIGHT_CLICK
+			if input == 1 : 
+				combo_container.get_child(combo_count).texture = LEFT_CLICK
+				combo_container.get_child(combo_count).modulate.a = 0.8
+			else :
+				combo_container.get_child(combo_count).texture = RIGHT_CLICK
+				combo_container.get_child(combo_count).modulate.a = 0.8
 			combo_count += 1
 		_:
 			printerr("something went wrong in combo input visualizer")
@@ -81,6 +87,7 @@ func combo_end(_value : String) -> void :
 func reset_combo() -> void :
 	for child in combo_container.get_children() :
 		child.texture = NO_CLICK
+		child.modulate.a = 0.5
 
 func toggle_combo_color(toggle : bool) -> void :
 	print("toggling")
