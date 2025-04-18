@@ -12,7 +12,8 @@ var input_count : int
 @export var move_dir : Vector2 = Vector2.ZERO
 var last_dir = {}
 
-signal fizzled()
+signal fizzled
+signal no_mana
 signal combo_attempt(combo : String)
 signal combo_input(input : int)
 signal entered(toggle : bool)

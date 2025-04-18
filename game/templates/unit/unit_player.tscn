@@ -42,6 +42,7 @@ y_sort_enabled = true
 scale = Vector2(0.2, 0.2)
 collision_layer = 2
 script = ExtResource("1_g1owm")
+move_speed = 175.0
 
 [node name="WeaponContainer" type="Node2D" parent="."]
 texture_filter = 1
@@ -62,7 +63,7 @@ texture_filter = 1
 position = Vector2(-1.8, -60.3)
 scale = Vector2(5.4, 5.4)
 sprite_frames = ExtResource("2_urnb0")
-animation = &"swing_north"
+animation = &"die"
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 2
@@ -120,11 +121,11 @@ one_shot = true
 [node name="AttackComboTimer" type="Timer" parent="TimerManager"]
 
 [node name="HpIndicator" parent="." instance=ExtResource("13_dika5")]
-position = Vector2(0, 15)
-scale = Vector2(0.5, 0.5)
+position = Vector2(0, 40)
+scale = Vector2(0.7, 0.7)
 
 [node name="mpIndicator" parent="." instance=ExtResource("15_30rmr")]
-position = Vector2(0, 30)
-scale = Vector2(0.5, 0.5)
+position = Vector2(0, 65)
+scale = Vector2(0.7, 0.7)
 
 [connection signal="player_died" from="." to="StateMachine" method="_transition_to_next_state"]

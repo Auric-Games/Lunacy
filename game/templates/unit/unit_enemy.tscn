@@ -32,6 +32,7 @@ y_sort_enabled = true
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_tid05")
+contact_damage = 20
 
 [node name="SpriteController" type="AnimatedSprite2D" parent="."]
 y_sort_enabled = true

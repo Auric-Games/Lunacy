@@ -12,6 +12,8 @@ var mana_modifier : int = 0
 @onready var timer : Timer
 @onready var player : PlayerUnit = get_parent().get_parent()
 
+signal no_mana
+
 func reset_mana() -> void :
 	mana_modifier = 0
 
@@ -31,6 +33,8 @@ func start() -> void :
 		timer.start()
 
 		do_skill()
+	else :
+		no_mana.emit()
 
 func do_skill() -> void :
 	pass

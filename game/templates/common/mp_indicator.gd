@@ -7,7 +7,7 @@ func _ready() -> void:
 	get_parent().mp_changed.connect(update_bar)
 
 
-func update_bar() -> void :
-	mp_bar.value = float(get_parent().current_mp) / get_parent().max_mp * 100
+func update_bar(_self, _val) -> void :
+	mp_bar.value = float(_val) / get_parent().max_mp * 100
 	
 	

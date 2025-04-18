@@ -18,7 +18,7 @@ class_name PlayerUnit extends BaseUnit
 		max_mp = value
 @export var current_mp : float = 200 :
 	set(value) :
-		mp_changed.emit()
+		mp_changed.emit(self, value)
 		current_mp = value
 
 @export var mana_regen : int = 15 : # per second
