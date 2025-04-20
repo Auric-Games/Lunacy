@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://d3gd8ggc2177m"]
+
+[ext_resource type="Script" path="res://game/templates/common/mp_indicator.gd" id="1_4mjyl"]
+[ext_resource type="Texture2D" uid="uid://df88af7dup3s2" path="res://prototypes/assets/common/kenney_ui-pack-rpg-expansion/PNG/barBlue_horizontalBlue.png" id="2_nky5q"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_25p5p"]
+texture = ExtResource("2_nky5q")
+
+[node name="mpIndicator" type="Node2D"]
+script = ExtResource("1_4mjyl")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+texture_filter = 1
+offset_left = -143.0
+offset_top = -14.0
+offset_right = 144.0
+offset_bottom = 13.0
+theme_override_styles/fill = SubResource("StyleBoxTexture_25p5p")
+value = 100.0
+show_percentage = false

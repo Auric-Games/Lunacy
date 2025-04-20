@@ -7,8 +7,7 @@ func _ready() -> void:
 	get_parent().hp_changed.connect(update_bar)
 
 
-func update_bar() -> void :
-	hp_bar.value = float(get_parent().current_hp) / get_parent().max_hp * 100
-	print("HP Bar Updated: ", get_parent().current_hp, "/", get_parent().max_hp, ", ", hp_bar.value)
+func update_bar(_self, _val) -> void :
+	hp_bar.value = float(_val) / get_parent().max_hp * 100
 	
 	

@@ -1,13 +1,17 @@
 class_name EnemyUnit extends NPCUnit
 
+
 @export var team : int = 1 # 1 for enemies, 0 for players
-@export var contact_damage : int = 5
+@export var contact_damage : int = 15
 
 @onready var SoftCollider : SoftCollision = $SoftCollision
 
 @onready var player = get_tree().get_nodes_in_group("Player")[0]
 
 var _players_in_hurtbox : Array[PlayerUnit] 
+var _can_move : bool = true
+
+signal enemy_died
 
 func chase_player(delta : float) -> void:
 	if (player == null) : printerr("Player not found")
@@ -22,14 +26,40 @@ func take_damage(damage : int) -> void:
 
 func _ready() -> void:
 	current_hp = max_hp
+	disable_self()
 
 func _physics_process(delta : float):
-	chase_player(delta)
+	if _can_move == true : 
+		chase_player(delta)
 	if !_players_in_hurtbox.is_empty() :
 		for unit in _players_in_hurtbox :
 			unit.take_damage(contact_damage)
 	if (current_hp <= 0) :
-		queue_free()
+		die()
+
+func die() -> void:
+	disable_self()
+	var tween := create_tween()
+	tween.tween_property(self, "scale", Vector2.ZERO, 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+
+	await tween.finished
+	hide()
+	scale = Vector2(0.2, 0.2)
+	enemy_died.emit(self)
+
+func disable_self() -> void:
+	$CollisionShape2D.disabled = true
+	$HurtBox/Collider.disabled = true
+	$SoftCollision/Collider.disabled = true
+	_can_move = false
+	hide()
+
+func enable_self() -> void:
+	$CollisionShape2D.disabled = false
+	$HurtBox/Collider.disabled = false
+	$SoftCollision/Collider.disabled = false
+	_can_move = true
+	show()
 
 func _on_hurt_box_body_entered(body: Node2D) -> void:
 	if body.has_method("take_damage") and body is PlayerUnit:

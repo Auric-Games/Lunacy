@@ -7,8 +7,9 @@ class_name BaseUnit extends CharacterBody2D
 @export var current_hp : int = 100 :
 	set(value) :
 		# print ("Current HP: ", value)
+		hp_changed.emit(self, value)
 		current_hp = value
-		hp_changed.emit()
+		
 @export var max_hp : int = 100 :
 	set(value) :
 		max_hp = value

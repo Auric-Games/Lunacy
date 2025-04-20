@@ -1,0 +1,6 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://13rdubnj03vj"]
+
+[ext_resource type="FontFile" uid="uid://d0uqf7fe07cun" path="res://game/assets/common/fonts/Abaddon_Fonts_v1.2/Abaddon Bold.ttf" id="1_t4h1i"]
+
+[resource]
+font = ExtResource("1_t4h1i")

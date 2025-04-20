@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=4 uid="uid://bl4meto2e3auk"]
+[gd_scene load_steps=13 format=4 uid="uid://bl4meto2e3auk"]
 
 [ext_resource type="Script" path="res://game/scenes/gameplay/map_setup.gd" id="1_4asp3"]
 [ext_resource type="Texture2D" uid="uid://die0gtd4nttmr" path="res://prototypes/assets/tilemap/tilemap_packed.png" id="1_7x5qq"]
 [ext_resource type="PackedScene" uid="uid://cxi4amc8hn7hr" path="res://game/templates/unit/unit_player.tscn" id="2_qpfpt"]
-[ext_resource type="PackedScene" uid="uid://djksrtn3til2p" path="res://game/templates/unit/unit_enemy.tscn" id="3_odufv"]
-[ext_resource type="Script" path="res://game/src/unit/player/player_camera.gd" id="4_heejy"]
+[ext_resource type="PackedScene" uid="uid://trbupub18prg" path="res://game/templates/unit/player/player_camera.tscn" id="4_d1hht"]
+[ext_resource type="Script" path="res://game/src/unit/enemies/enemy_spawner.gd" id="5_cj84v"]
+[ext_resource type="Script" path="res://game/src/unit/components/damage_number/NumberPool.gd" id="6_f877g"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l18qj"]
 texture = ExtResource("1_7x5qq")
@@ -191,38 +192,21 @@ shape = SubResource("RectangleShape2D_ww8nk")
 position = Vector2(-204, 286)
 shape = SubResource("RectangleShape2D_ixa2o")
 
+[node name="NumberPool" type="Node" parent="."]
+script = ExtResource("6_f877g")
+
 [node name="PlayerContainer" type="Node" parent="."]
 
 [node name="PlayerUnit" parent="PlayerContainer" groups=["Player"] instance=ExtResource("2_qpfpt")]
 position = Vector2(589, 312)
-move_speed = 200.0
 
 [node name="Camera" type="Camera2D" parent="PlayerContainer"]
 zoom = Vector2(2.5, 2.5)
 script = ExtResource("4_heejy")
 
 [node name="Enemies" type="Node" parent="."]
+script = ExtResource("5_cj84v")
 
-[node name="EnemyTemplate" parent="Enemies" instance=ExtResource("3_odufv")]
-position = Vector2(350, 223)
-
-[node name="EnemyTemplate2" parent="Enemies" instance=ExtResource("3_odufv")]
-position = Vector2(298, 352)
-
-[node name="EnemyTemplate3" parent="Enemies" instance=ExtResource("3_odufv")]
-position = Vector2(520, 172)
-
-[node name="EnemyTemplate4" parent="Enemies" instance=ExtResource("3_odufv")]
-position = Vector2(432, 308)
-
-[node name="EnemyTemplate5" parent="Enemies" instance=ExtResource("3_odufv")]
-position = Vector2(240, 250)
-
-[node name="EnemyTemplate6" parent="Enemies" instance=ExtResource("3_odufv")]
-position = Vector2(267, 150)
-
-[node name="EnemyTemplate7" parent="Enemies" instance=ExtResource("3_odufv")]
-position = Vector2(153, 201)
-
-[node name="EnemyTemplate8" parent="Enemies" instance=ExtResource("3_odufv")]
-position = Vector2(382, 82)
+[connection signal="time_changed" from="." to="PlayerContainer/Camera" method="update_timer"]
+[connection signal="hp_changed" from="PlayerContainer/PlayerUnit" to="NumberPool" method="handle_hp"]
+[connection signal="mp_changed" from="PlayerContainer/PlayerUnit" to="NumberPool" method="handle_mp"]

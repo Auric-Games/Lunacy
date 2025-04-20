@@ -12,7 +12,8 @@ var input_count : int
 @export var move_dir : Vector2 = Vector2.ZERO
 var last_dir = {}
 
-signal fizzled()
+signal fizzled
+signal no_mana
 signal combo_attempt(combo : String)
 
 func enter(_previous_state_path: String, _data := {}) -> void:
