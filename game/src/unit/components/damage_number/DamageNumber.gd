@@ -13,7 +13,7 @@ const TEXT : int = 3
 
 const TYPE : Array[int] = [DMG, HEAL, MANA, TEXT]
 
-const DMG_CLR : Color = Color.RED
+const DMG_CLR : Color = Color.INDIAN_RED
 const HEAL_CLR : Color = Color.GREEN
 const MANA_CLR : Color = Color.BLUE
 var custom_color : Color = Color.WHITE
