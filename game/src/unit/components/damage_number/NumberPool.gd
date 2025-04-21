@@ -4,17 +4,30 @@ extends Node
 
 @onready var _pool_ref : Array[DamageNumber] = []
 @onready var _iterator : int = 0
-@onready var _unit_ref : BaseUnit = get_parent().get_node("PlayerContainer/PlayerUnit")
+@onready var _unit_refs : Array[BaseUnit] = []
+@onready var spawner_ref : Node = get_parent().get_node("Enemies") 
 
 var buffer : Dictionary = {}
 var last_display_time: Dictionary = {}
 @export var display_cooldown: float = 0.2 
 
 func _ready() -> void:
-	_unit_ref.hp_changed.connect(handle_hp)
-	# _unit_ref.mp_changed.connect(handle_mp)
-	_unit_ref.get_node("SkillController").fizzled.connect(handle_fizzle)
-	_unit_ref.get_node("SkillController").no_mana.connect(handle_no_mana)
+	var player_ref : PlayerUnit = get_parent().get_node("PlayerContainer/PlayerUnit")
+	player_ref.hp_changed.connect(handle_hp)
+	# player_ref.mp_changed.connect(handle_mp)
+	player_ref.get_node("SkillController").fizzled.connect(handle_fizzle)
+	player_ref.get_node("SkillController").no_mana.connect(handle_no_mana)
+
+	await get_parent().get_node("Enemies").ready
+
+	for unit in get_parent().get_node("Enemies").get_children():
+		if !(unit is BaseUnit) :
+			print("Not a BaseUnit: ", unit)
+			continue
+		_unit_refs.append(unit)
+		unit.hp_changed.connect(handle_hp)
+	
+
 	for i in range(_pool_size):
 		var number : DamageNumber = DamageNumber.new()
 		
