@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=4 uid="uid://bl4meto2e3auk"]
 
 [ext_resource type="Script" path="res://game/scenes/gameplay/map_setup.gd" id="1_4asp3"]
-[ext_resource type="Texture2D" uid="uid://die0gtd4nttmr" path="res://prototypes/assets/tilemap/tilemap_packed.png" id="1_7x5qq"]
+[ext_resource type="Texture2D" uid="uid://die0gtd4nttmr" path="res://prototypes/assets/Tilemap/tilemap_packed.png" id="1_7x5qq"]
 [ext_resource type="PackedScene" uid="uid://cxi4amc8hn7hr" path="res://game/templates/unit/unit_player.tscn" id="2_qpfpt"]
 [ext_resource type="PackedScene" uid="uid://trbupub18prg" path="res://game/templates/unit/player/player_camera.tscn" id="4_d1hht"]
 [ext_resource type="Script" path="res://game/src/unit/enemies/enemy_spawner.gd" id="5_cj84v"]

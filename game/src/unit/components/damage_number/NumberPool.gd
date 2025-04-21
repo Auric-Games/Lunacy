@@ -1,6 +1,6 @@
 extends Node
 
-@export var _pool_size : int = 30
+@export var _pool_size : int = 100
 
 @onready var _pool_ref : Array[DamageNumber] = []
 @onready var _iterator : int = 0
