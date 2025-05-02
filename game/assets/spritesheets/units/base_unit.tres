@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=49 format=3 uid="uid://4i10ym1awmbg"]
+[gd_resource type="SpriteFrames" load_steps=37 format=3 uid="uid://4i10ym1awmbg"]
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_w5gxe"]
 load_path = "res://.godot/imported/player.png-177bf05a96c506e5a9453fbaa04ecabe.ctex"
@@ -143,54 +143,6 @@ region = Rect2(200, 152, 32, 40)
 atlas = SubResource("CompressedTexture2D_w5gxe")
 region = Rect2(248, 152, 32, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bkv2i"]
-atlas = SubResource("CompressedTexture2D_w5gxe")
-region = Rect2(8, 344, 32, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_my0bk"]
-atlas = SubResource("CompressedTexture2D_w5gxe")
-region = Rect2(56, 344, 32, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ou70u"]
-atlas = SubResource("CompressedTexture2D_w5gxe")
-region = Rect2(104, 344, 32, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ej4h1"]
-atlas = SubResource("CompressedTexture2D_w5gxe")
-region = Rect2(152, 344, 32, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ktnin"]
-atlas = SubResource("CompressedTexture2D_w5gxe")
-region = Rect2(8, 392, 32, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_8xk2f"]
-atlas = SubResource("CompressedTexture2D_w5gxe")
-region = Rect2(56, 392, 32, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vesqk"]
-atlas = SubResource("CompressedTexture2D_w5gxe")
-region = Rect2(104, 392, 32, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1pjd3"]
-atlas = SubResource("CompressedTexture2D_w5gxe")
-region = Rect2(152, 392, 32, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tqvlq"]
-atlas = SubResource("CompressedTexture2D_w5gxe")
-region = Rect2(8, 296, 32, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1n4bp"]
-atlas = SubResource("CompressedTexture2D_w5gxe")
-region = Rect2(56, 296, 32, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xr8ce"]
-atlas = SubResource("CompressedTexture2D_w5gxe")
-region = Rect2(104, 296, 32, 40)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pvq1y"]
-atlas = SubResource("CompressedTexture2D_w5gxe")
-region = Rect2(152, 296, 32, 40)
-
 [resource]
 animations = [{
 "frames": [{
@@ -331,56 +283,5 @@ animations = [{
 }],
 "loop": true,
 "name": &"run_south",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bkv2i")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_my0bk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ou70u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ej4h1")
-}],
-"loop": true,
-"name": &"swing_east",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ktnin")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_8xk2f")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vesqk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1pjd3")
-}],
-"loop": true,
-"name": &"swing_north",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tqvlq")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1n4bp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xr8ce")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_pvq1y")
-}],
-"loop": true,
-"name": &"swing_south",
 "speed": 5.0
 }]
