@@ -41,10 +41,7 @@ func _process(delta: float) -> void:
 	var now := Time.get_ticks_msec() / 1000.0
 
 	for unit in buffer.keys():
-		if (!unit._enabled):
-			buffer.erase(unit)
-			continue
-		elif last_display_time.has(unit) and (now - last_display_time[unit] < display_cooldown):
+		if last_display_time.has(unit) and (now - last_display_time[unit] < display_cooldown):
 			continue
 
 		for type in buffer[unit].keys():

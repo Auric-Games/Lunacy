@@ -1,8 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://bsmyq03db5c53"]
+[gd_scene load_steps=7 format=3 uid="uid://bsmyq03db5c53"]
 
+[ext_resource type="Texture2D" uid="uid://drs6k3tkyebq7" path="res://game/assets/common/missing_texture.png" id="1_oa6uy"]
 [ext_resource type="Script" path="res://game/templates/skills/player_skills/IceWallTemplate.gd" id="1_pn4hv"]
-[ext_resource type="Texture2D" uid="uid://dgwv0d2jbqlp3" path="res://prototypes/assets/attacks/Water Effect and Bullet 16x16.png" id="2_mf6t6"]
 [ext_resource type="PackedScene" uid="uid://cgbqq0yxxa72i" path="res://game/templates/common/HP_Indicator.tscn" id="3_6wf3e"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7koyr"]
+albedo_texture = ExtResource("1_oa6uy")
+
+[sub_resource type="QuadMesh" id="QuadMesh_n3hhc"]
+material = SubResource("StandardMaterial3D_7koyr")
+size = Vector2(20, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fw6xg"]
 
@@ -10,68 +17,25 @@
 scale = Vector2(1.5, 1.5)
 script = ExtResource("1_pn4hv")
 
+[node name="TemporaryVisualizer" type="MeshInstance2D" parent="."]
+texture_repeat = 2
+scale = Vector2(2.22, 0.732)
+mesh = SubResource("QuadMesh_n3hhc")
+
 [node name="ColliderBox" type="StaticBody2D" parent="."]
 collision_mask = 6
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="ColliderBox"]
-polygon = PackedVector2Array(0, -4.66667, -14.6667, -2, -26.6667, 6, -20.6667, 13.3333, -9.33333, 6.66667, 0, 5.33333, 8.66667, 6.66667, 19.3333, 12, 25.3333, 5.33333, 16, -1.33333)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ColliderBox"]
+scale = Vector2(2, 0.659)
+shape = SubResource("RectangleShape2D_fw6xg")
 
 [node name="DamageBox" type="Area2D" parent="."]
-visible = false
 collision_layer = 32
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamageBox"]
 scale = Vector2(2.22035, 0.731523)
 shape = SubResource("RectangleShape2D_fw6xg")
-
-[node name="Sprite2D3" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(-10, 1.33333)
-rotation = -0.279253
-scale = Vector2(1, 1)
-texture = ExtResource("2_mf6t6")
-hframes = 36
-vframes = 12
-frame = 36
-
-[node name="Sprite2D3" type="Sprite2D" parent="Sprite2D3"]
-texture_filter = 1
-position = Vector2(-10, 1.33333)
-rotation = -0.279253
-scale = Vector2(1, 1)
-texture = ExtResource("2_mf6t6")
-hframes = 36
-vframes = 12
-frame = 36
-
-[node name="Sprite2D2" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(10, 1.33)
-rotation = 0.279253
-scale = Vector2(1, 1)
-texture = ExtResource("2_mf6t6")
-hframes = 36
-vframes = 12
-frame = 36
-
-[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D2"]
-texture_filter = 1
-position = Vector2(10, 1.33)
-rotation = 0.279253
-scale = Vector2(1, 1)
-texture = ExtResource("2_mf6t6")
-hframes = 36
-vframes = 12
-frame = 36
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(0, -3.17891e-07)
-texture = ExtResource("2_mf6t6")
-hframes = 36
-vframes = 12
-frame = 36
 
 [node name="HpIndicator" parent="." instance=ExtResource("3_6wf3e")]
 position = Vector2(0, -5.33333)
