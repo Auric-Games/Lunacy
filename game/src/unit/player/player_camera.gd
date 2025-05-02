@@ -102,11 +102,13 @@ func toggle_combo_color(toggle : bool) -> void :
 		tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 		tween.tween_property(self, "zoom", zoom+Vector2(0.1,0.1), 0.1)
 		$Control/Label.text = "Skill Mode: Enter a Mouse Combo!"
+		$Control/ComboList.visible = true
 	else :
 		tween.tween_property(viewport_color, "color", Color(0.125, 0.125, 0.125, 0), 0.15)
 		tween = create_tween().set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
 		tween.tween_property(self, "zoom", zoom-Vector2(0.1,0.1), 0.1)
 		$Control/Label.text = "Normal Mode: Move and Attack!"
+		$Control/ComboList.visible = false
 
 func update_timer(value : int) -> void :
 

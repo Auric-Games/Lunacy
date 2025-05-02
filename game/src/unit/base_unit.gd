@@ -3,8 +3,10 @@ class_name BaseUnit extends CharacterBody2D
 @onready var hurtBox : Area2D
 @onready var collisionBox : CollisionShape2D
 
+var _enabled : bool = true
+
 @export_category("Unit Stats")
-@export var current_hp : int = 100 :
+@export var current_hp : float = 100 :
 	set(value) :
 		# print ("Current HP: ", value)
 		hp_changed.emit(self, value)
