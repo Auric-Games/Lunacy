@@ -20,11 +20,11 @@ script = ExtResource("1_86jyl")
 
 [node name="Label" type="Label" parent="."]
 texture_filter = 1
-offset_left = 209.0
-offset_top = 183.0
-offset_right = 371.0
-offset_bottom = 206.0
-text = "Anima PreAlpha 2 Demo"
+offset_left = 214.0
+offset_top = 184.0
+offset_right = 373.0
+offset_bottom = 207.0
+text = "Anima PreAlpha 1 Demo"
 label_settings = ExtResource("6_bg4he")
 
 [node name="Control2" type="Control" parent="."]
@@ -41,10 +41,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 238.0
-offset_top = 92.0
-offset_right = 238.0
-offset_bottom = 92.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(10.16, 5.84)
@@ -240,32 +236,3 @@ offset_bottom = -152.0
 text = "Try Pressing Space Bar!"
 label_settings = ExtResource("6_bg4he")
 horizontal_alignment = 1
-
-[node name="Multiplier" type="Label" parent="Control"]
-texture_filter = 1
-offset_left = 203.0
-offset_top = -198.0
-offset_right = 509.0
-offset_bottom = -176.0
-label_settings = ExtResource("6_bg4he")
-horizontal_alignment = 2
-
-[node name="Score" type="Label" parent="Control"]
-texture_filter = 1
-offset_left = 456.0
-offset_top = -290.0
-offset_right = 762.0
-offset_bottom = -268.0
-label_settings = ExtResource("6_bg4he")
-horizontal_alignment = 2
-
-[node name="ComboList" type="Label" parent="Control"]
-texture_filter = 1
-offset_left = -367.0
-offset_top = 141.0
-offset_right = -61.0
-offset_bottom = 201.0
-text = "LLR : Ice Wall
-LLL : Shotgun
-RRR : Teleport"
-label_settings = ExtResource("6_bg4he")

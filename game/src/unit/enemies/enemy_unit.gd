@@ -17,60 +17,37 @@ func chase_player(delta : float) -> void:
 	if (player == null) : printerr("Player not found")
 	var move_dir = (player.global_position - global_position).normalized()
 	_target_velocity = move_dir * move_speed
-
 	if (SoftCollider.is_colliding()) :
 		_target_velocity += SoftCollider.get_push_vector() * SoftCollider.push_force
-	if move_dir.x > 0 : 
-		$SpriteController.flip_h = false 
-		$SpriteController.play("idle") 
-	else : 
-		$SpriteController.flip_h = true 
-		$SpriteController.play("idle") 
-	move_and_slide() 
- 
-func take_damage(damage : int) -> void: 
-	current_hp -= damage 
- 
-func _ready() -> void: 
-	current_hp = max_hp 
-	disable_self() 
- 
-func _physics_process(delta : float): 
-	if _can_move == true :  
+	move_and_slide()
+
+func take_damage(damage : int) -> void:
+	current_hp -= damage
+
+func _ready() -> void:
+	current_hp = max_hp
+	disable_self()
+
+func _physics_process(delta : float):
+	if _can_move == true : 
 		chase_player(delta)
 	if !_players_in_hurtbox.is_empty() :
 		for unit in _players_in_hurtbox :
 			unit.take_damage(contact_damage)
-
-func _process(delta: float) -> void:
 	if (current_hp <= 0) :
 		die()
-	
-	if (player.global_position - global_position).length() > 600 :
-		disable_self()
-		var pot_pos := Vector2(
-			player.global_position.x + randf_range(-300, 300),
-			player.global_position.y + randf_range(-300, 300)
-		)
 
-		if pot_pos.distance_to(player.global_position) < 200:
-			global_position = pot_pos.normalized() * 250 + player.global_position
-		else:
-			global_position = pot_pos
-		enable_self()
 func die() -> void:
-	if _enabled :
-		disable_self()
-		var tween := create_tween()
-		tween.tween_property(self, "scale", Vector2.ZERO, 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
+	disable_self()
+	var tween := create_tween()
+	tween.tween_property(self, "scale", Vector2.ZERO, 1).set_trans(Tween.TRANS_EXPO).set_ease(Tween.EASE_OUT)
 
-		await tween.finished
-		hide()
-		scale = Vector2.ONE
-		enemy_died.emit(self)
+	await tween.finished
+	hide()
+	scale = Vector2(0.2, 0.2)
+	enemy_died.emit(self)
 
 func disable_self() -> void:
-	_enabled = false
 	$CollisionShape2D.disabled = true
 	$HurtBox/Collider.disabled = true
 	$SoftCollision/Collider.disabled = true
@@ -78,7 +55,6 @@ func disable_self() -> void:
 	hide()
 
 func enable_self() -> void:
-	_enabled = true
 	$CollisionShape2D.disabled = false
 	$HurtBox/Collider.disabled = false
 	$SoftCollision/Collider.disabled = false

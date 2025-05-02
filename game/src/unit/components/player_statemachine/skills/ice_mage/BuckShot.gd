@@ -13,7 +13,7 @@ func _ready() -> void:
 	timer.one_shot = true
 	timer.wait_time = 4
 
-	mana_cost = 35
+	mana_cost = 30
 
 func do_skill() -> void :
 	var mouse_pos : Vector2 = player.get_global_mouse_position()
@@ -26,7 +26,6 @@ func do_skill() -> void :
 
 		bullet.position = player.global_position + (20 * vector_mod.normalized())
 		bullet.direction = mouse_delta.normalized().rotated(i * (bullet_spread / bullet_count) - (bullet_spread / 2))
-		bullet.scale = Vector2(8, 8)
 
 		bullet.rotate(bullet.direction.angle()) # Spread the bullets evenly based on the count
 		#print(bullet.rotation)

@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Lunacy"
-run/main_scene="res://game/scenes/title/titleScreen.tscn"
+run/main_scene="res://game/scenes/gameplay/lvl_test.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://game/assets/common/icon.svg"
 
@@ -21,7 +21,6 @@ Common="*res://game/src/global/singletons/common.gd"
 Controls="*res://game/src/global/singletons/controls.gd"
 Settings="*res://game/src/global/singletons/settings.gd"
 rng="*res://game/src/global/singletons/rng.gd"
-Musicbox="*res://game/src/global/singletons/musicbox.gd"
 
 [display]
 

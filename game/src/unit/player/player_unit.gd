@@ -26,13 +26,7 @@ class_name PlayerUnit extends BaseUnit
 		mana_regen = value
 		true_mana_regen = float(value) / 60
 
-@export var hp_regen : int = 2 : # per second
-	set(value) :
-		hp_regen = value
-		true_hp_regen = float(value) / 60
-
 var true_mana_regen : float = float(mana_regen) / 60
-var true_hp_regen : float = float(hp_regen) / 60
 
 signal player_died
 signal mp_changed
@@ -48,12 +42,11 @@ func _ready() -> void :
 
 func _physics_process(delta: float) -> void:
 	if (Input.is_action_pressed('attack_one')) :
+		print("attack one pressed")
 		handle_basic_attack()
 	camera_ref.follow_mouse()
 	if current_mp < max_mp :
 		regenerate_mp()
-	if current_hp < max_hp :
-		regenerate_hp()
 	frame_counter += 1
 
 var template_node = preload("res://game/templates/attacks/bullet/bullet_temp.tscn")
@@ -80,7 +73,7 @@ func spawn_bullet(size : int = 10, vel : float = 6, damage : int = 20)	-> void :
 	var mouse_pos : Vector2 = get_global_mouse_position()
 	var bullet = template_node.instantiate()
 
-	bullet.position = global_position + (30 * (mouse_pos - global_position).normalized())
+	bullet.position = global_position + (20 * (mouse_pos - global_position).normalized())
 	bullet.scale = Vector2(size, size)
 	bullet.speed = vel
 
@@ -106,10 +99,6 @@ func take_damage(value : int) -> void :
 func regenerate_mp() -> void :
 	current_mp += true_mana_regen
 	current_mp = clamp(current_mp, 0, max_mp)
-
-func regenerate_hp() -> void :
-	current_hp += true_hp_regen
-	current_hp = clamp(current_hp, 0, max_hp)
 
 func timer_setup() -> void :
 	attack_cooldown_timer.wait_time = 0.5
