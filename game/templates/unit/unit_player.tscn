@@ -41,6 +41,7 @@ radius = 30.0
 y_sort_enabled = true
 scale = Vector2(0.2, 0.2)
 collision_layer = 2
+collision_mask = 524288
 script = ExtResource("1_g1owm")
 move_speed = 175.0
 
@@ -63,7 +64,7 @@ texture_filter = 1
 position = Vector2(-1.8, -60.3)
 scale = Vector2(5.4, 5.4)
 sprite_frames = ExtResource("2_urnb0")
-animation = &"die"
+animation = &"idle_south"
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 2
@@ -101,12 +102,15 @@ script = ExtResource("9_vawtj")
 
 [node name="IceWall" type="Node" parent="SkillController"]
 script = ExtResource("11_jso6e")
+max_hp = 50
 
 [node name="Blink" type="Node" parent="SkillController"]
 script = ExtResource("11_28lu6")
 
 [node name="BuckShot" type="Node" parent="SkillController"]
 script = ExtResource("12_q83pk")
+bullet_count = 7
+bullet_spread = 0.75
 
 [node name="TimerManager" type="Node" parent="."]
 
