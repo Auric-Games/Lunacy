@@ -11,5 +11,5 @@ func start_sound() -> void:
 	Musicbox.music_player.play()
 
 
-func _on_high_scores_pressed() -> void:
-	get_tree().change_scene_to_file("res://game/scenes/title/highscores.tscn")
+func _on_credits_pressed() -> void:
+	get_tree().change_scene_to_file("res://game/scenes/credits/GodotCredits.tscn")

@@ -64,7 +64,9 @@ texture_filter = 1
 position = Vector2(-1.8, -60.3)
 scale = Vector2(5.4, 5.4)
 sprite_frames = ExtResource("2_urnb0")
-animation = &"idle_south"
+animation = &"die"
+frame = 8
+frame_progress = 1.0
 
 [node name="HurtBox" type="Area2D" parent="."]
 collision_layer = 2
@@ -109,8 +111,8 @@ script = ExtResource("11_28lu6")
 
 [node name="BuckShot" type="Node" parent="SkillController"]
 script = ExtResource("12_q83pk")
-bullet_count = 7
-bullet_spread = 0.75
+bullet_count = 9
+bullet_spread = 2.118
 
 [node name="TimerManager" type="Node" parent="."]
 

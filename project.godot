@@ -18,10 +18,9 @@ config/icon="res://game/assets/common/icon.svg"
 [autoload]
 
 Common="*res://game/src/global/singletons/common.gd"
-Controls="*res://game/src/global/singletons/controls.gd"
-Settings="*res://game/src/global/singletons/settings.gd"
-rng="*res://game/src/global/singletons/rng.gd"
 Musicbox="*res://game/src/global/singletons/musicbox.gd"
+AudioMixer="*res://game/src/global/singletons/audiomixer.gd"
+RNG="*res://game/src/global/singletons/rng.gd"
 
 [display]
 

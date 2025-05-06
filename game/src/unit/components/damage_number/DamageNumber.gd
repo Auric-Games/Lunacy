@@ -13,7 +13,7 @@ const TEXT : int = 3
 
 const TYPE : Array[int] = [DMG, HEAL, MANA, TEXT]
 
-const DMG_CLR : Color = Color.INDIAN_RED
+const DMG_CLR : Color = Color.CORAL
 const HEAL_CLR : Color = Color.GREEN
 const MANA_CLR : Color = Color.BLUE
 var custom_color : Color = Color.WHITE
@@ -52,6 +52,7 @@ func display_number(type : int, val : String, pos : Vector2) -> void:
 	show()
 	var tween := create_tween()
 	tween.tween_property(follow_node, "progress_ratio", 1.0, lifetime).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-
-	await( tween.finished )
+	tween.parallel().tween_property(text, "scale", Vector2(1.5,1.5), lifetime).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	await(tween.finished)
+	text.scale = Vector2(1, 1)
 	hide()

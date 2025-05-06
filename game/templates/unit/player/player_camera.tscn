@@ -41,10 +41,10 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 238.0
-offset_top = 92.0
-offset_right = 238.0
-offset_bottom = 92.0
+offset_left = 200.0
+offset_top = 135.0
+offset_right = 200.0
+offset_bottom = 135.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(10.16, 5.84)
@@ -243,24 +243,46 @@ horizontal_alignment = 1
 
 [node name="Multiplier" type="Label" parent="Control"]
 texture_filter = 1
-offset_left = 203.0
-offset_top = -198.0
-offset_right = 509.0
-offset_bottom = -176.0
+layout_mode = 0
+offset_left = 283.0
+offset_top = -201.0
+offset_right = 321.0
+offset_bottom = -179.0
+scale = Vector2(2, 2)
+text = "1.0x"
+label_settings = ExtResource("6_bg4he")
+horizontal_alignment = 2
+
+[node name="Wave" type="Label" parent="Control/Multiplier"]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.746
+anchor_top = 1.561
+anchor_right = -0.746
+anchor_bottom = 1.561
+offset_left = 29.848
+offset_top = -19.342
+offset_right = 102.848
+offset_bottom = 2.658
+scale = Vector2(0.5, 0.5)
+text = "Wave 0"
 label_settings = ExtResource("6_bg4he")
 horizontal_alignment = 2
 
 [node name="Score" type="Label" parent="Control"]
 texture_filter = 1
-offset_left = 456.0
-offset_top = -290.0
-offset_right = 762.0
-offset_bottom = -268.0
+layout_mode = 0
+offset_left = -369.0
+offset_top = -200.0
+offset_right = -63.0
+offset_bottom = -178.0
+text = "000000000"
 label_settings = ExtResource("6_bg4he")
-horizontal_alignment = 2
 
 [node name="ComboList" type="Label" parent="Control"]
 texture_filter = 1
+layout_mode = 0
 offset_left = -367.0
 offset_top = 141.0
 offset_right = -61.0

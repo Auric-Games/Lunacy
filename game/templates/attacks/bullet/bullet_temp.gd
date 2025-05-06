@@ -6,6 +6,7 @@ const PLAYER : int = 0
 const ENEMY : int = 1
 
 @export var team =  PLAYER
+@export var sfx : AudioStream = preload("res://game/assets/audio/sounds/explode5.mp3")
 
 var direction : Vector2 = Vector2.ZERO
 var stopped : bool = false
@@ -27,6 +28,7 @@ func _physics_process(delta: float) -> void:
 				continue
 			if body.has_method("take_damage"):
 				Sprite.play("destroyed")
+				play_death_sound()
 				stopped = true
 				body.take_damage(damage)
 				damage = 0
@@ -35,7 +37,12 @@ func _physics_process(delta: float) -> void:
 	if !stopped :
 		move()
 
+var bool_one : bool = false
 
+func play_death_sound() -> void:
+	if !bool_one :
+		bool_one = true
+		AudioMixer.play_sfx(sfx, -10)
 
 func move() -> void :
 	position += direction * speed

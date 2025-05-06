@@ -3,6 +3,11 @@ extends Node2D
 var player_unit : PlayerUnit
 var player_camera : Camera2D
 var game_timer : Timer
+var difficulty_mult : float = 1.0 :
+	set(value) :
+		difficulty_mult = value
+		$PlayerContainer/Camera.update_mult(value)
+		$PlayerContainer/PlayerUnit.scale_player(value)
 
 var total_time : int = 0
 
@@ -19,6 +24,8 @@ func _ready() -> void:
 	add_child(game_timer)
 
 	game_timer.timeout.connect(update_time)
+	$Enemies.enemy_died.connect(award_mp)
+	$Enemies.enemy_spawned.connect(process_damage_numbers)
 
 func _process(delta: float) -> void:
 	if (Input.is_action_just_pressed("ui_cancel")) :
@@ -31,3 +38,11 @@ func initialize_player() -> void :
 func update_time() -> void :
 	total_time += 1
 	time_changed.emit(total_time)
+
+func process_damage_numbers(enemy : EnemyUnit) -> void :
+	$NumberPool.connect_unit(enemy)
+
+func award_mp() -> void :
+	player_unit.current_mp += 12
+	if (player_unit.current_mp > player_unit.max_mp) :
+		player_unit.current_mp = player_unit.max_mp

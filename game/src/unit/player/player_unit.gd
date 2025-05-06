@@ -21,12 +21,12 @@ class_name PlayerUnit extends BaseUnit
 		mp_changed.emit(self, value)
 		current_mp = value
 
-@export var mana_regen : int = 15 : # per second
+@export var mana_regen : float = 15 : # per second
 	set(value) :
 		mana_regen = value
 		true_mana_regen = float(value) / 60
 
-@export var hp_regen : int = 2 : # per second
+@export var hp_regen : float = 2 : # per second
 	set(value) :
 		hp_regen = value
 		true_hp_regen = float(value) / 60
@@ -69,17 +69,27 @@ func handle_basic_attack() -> void :
 			attack_counter += 1
 			attack_cooldown_timer.start()
 			attack_combo_timer.start()
-			spawn_bullet()
+			spawn_bullet(10, 6*_current_mult, 20* _current_mult)
 		else :
 			attack_counter = 0
 			attack_combo_timer.stop()
 			attack_cooldown_timer.start()
-			spawn_bullet(15, 8, 30)
-		
+			spawn_bullet(15, 8*_current_mult, 30* _current_mult)
+
+var _current_mult : float = 1.0
+func scale_player(mult : float) -> void :
+	_current_mult = mult
+	max_hp = max_hp + 5
+	max_mp = max_mp + 5
+	mana_regen = mana_regen + 0.25
+	hp_regen = hp_regen + 0.5
+	move_speed = move_speed + 5
+
 func spawn_bullet(size : int = 10, vel : float = 6, damage : int = 20)	-> void :
 	var mouse_pos : Vector2 = get_global_mouse_position()
 	var bullet = template_node.instantiate()
 
+	bullet.damage = damage
 	bullet.position = global_position + (30 * (mouse_pos - global_position).normalized())
 	bullet.scale = Vector2(size, size)
 	bullet.speed = vel
@@ -95,8 +105,9 @@ func _load_data(data : Resource) -> void :
 func take_damage(value : int) -> void :
 	if hurt_timer.is_stopped() :
 		hurt_timer.start()
-		sprite_ref.play("hurt")
 		current_hp -= value
+	else : 
+		return
 	if (current_hp <= 0) :
 		$CollisionShape2D.disabled = true
 		player_died.emit("Dead")

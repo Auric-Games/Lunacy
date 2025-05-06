@@ -17,20 +17,9 @@ func _ready() -> void:
 	# player_ref.mp_changed.connect(handle_mp)
 	player_ref.get_node("SkillController").fizzled.connect(handle_fizzle)
 	player_ref.get_node("SkillController").no_mana.connect(handle_no_mana)
-
-	await get_parent().get_node("Enemies").ready
-
-	for unit in get_parent().get_node("Enemies").get_children():
-		if !(unit is BaseUnit) :
-			print("Not a BaseUnit: ", unit)
-			continue
-		_unit_refs.append(unit)
-		unit.hp_changed.connect(handle_hp)
 	
-
 	for i in range(_pool_size):
 		var number : DamageNumber = DamageNumber.new()
-		
 		_pool_ref.append(number)
 		add_child(number)
 
@@ -89,3 +78,6 @@ func add_to_buffer(unit : BaseUnit, type : int, val) -> void:
 		else:
 			buffer[unit][type] = val
 	buffer[unit][type] += val
+
+func connect_unit(unit : BaseUnit) -> void :
+	unit.hp_changed.connect(handle_hp)

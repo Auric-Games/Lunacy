@@ -1,87 +1,99 @@
 extends Node
 
-@export var _pool_size: int = 30
-@export var _enemy_count: int = 0
-@export var enabled_enemies: Dictionary = {}
-@export var disabled_enemies: Array[EnemyUnit] = []
+@export var wave_one_count : int = 8
+@export var unit_cap : int = 100
+
+var _enemy_count: int = 0
+var _wave_count: int = 0
 
 @onready var _unit_ref: BaseUnit = get_parent().get_node("PlayerContainer/PlayerUnit")
 @onready var _enemy_ref: PackedScene = preload("res://game/templates/unit/unit_enemy.tscn")
 @onready var timer: Timer = Timer.new()
 @onready var timer_two : Timer = Timer.new()
 
-func _ready() -> void:
-	# Prepopulate enemy pool
-	for i in range(_pool_size):
-		var enemy: EnemyUnit = _enemy_ref.instantiate() as EnemyUnit
-		enemy.name = "Enemy" + str(i+1)
-		enemy.enemy_died.connect(remove_enemy)
-		disabled_enemies.append(enemy)
-		add_child(enemy)
-		enemy.disable_self()
+@onready var _enemy_buffer : Array[BaseUnit] = []
+var _buffer_limit : int = 20
 
-	do_wave()
+func _ready() -> void:
 	# Set up timer
 	add_child(timer)
 	timer.wait_time = 10
 	timer.one_shot = true
 	timer.timeout.connect(do_wave)
-	timer.start()
 
 	add_child(timer_two)
-	timer_two.wait_time = 3
+	timer_two.wait_time = 2
 	timer_two.one_shot = true
 	timer_two.timeout.connect(do_wave)
+	timer_two.start()
 
-func remove_enemy(enemy: EnemyUnit) -> void:
-	if enemy in enabled_enemies:
-		disabled_enemies.append(enabled_enemies[enemy])
-		enabled_enemies.erase(enemy)
-		enemy.disable_self()
-		enemy.set_process(false)
-		enemy.current_hp = enemy.max_hp
-		_enemy_count -= 1
-		if _enemy_count <= 0:
-			timer_two.start()
-			await timer_two.timeout
-			do_wave()
-		
+func _process(delta: float) -> void:
+	if _enemy_count <= 0 && timer_two.is_stopped() && timer.time_left >= 3:
+		print ("Early Wave Timer Triggered")
+		timer.stop()
+		timer_two.start()
+signal enemy_spawned()
 func spawn_enemy() -> void:
-	if disabled_enemies.size() == 0:
-		return
-
-	var enemy: EnemyUnit = disabled_enemies.pop_back() as EnemyUnit
-
-	enabled_enemies[enemy] = enemy
-	enemy.current_hp = enemy.max_hp
-	_enemy_count += 1
-
-	var pot_pos := Vector2(
-		_unit_ref.position.x + randf_range(-300, 300),
-		_unit_ref.position.y + randf_range(-300, 300)
-	)
-
-	if pot_pos.distance_to(_unit_ref.position) < 200:
-		enemy.position = pot_pos.normalized() * 250 + _unit_ref.position
+	var enemy : EnemyUnit
+	if _enemy_count >= unit_cap:
+		if _enemy_buffer.size() >= _buffer_limit : return
+		enemy = _enemy_ref.instantiate()
+		add_child(enemy)
+		enemy.enemy_died.connect(shrink_counter)
+		_enemy_buffer.append(enemy)
+	elif (!_enemy_buffer.is_empty()):
+		enemy = _enemy_buffer.pop_back()
+		enemy.enable_self()
+		position_enemy(enemy)
+		enemy.enable_self()
+		_enemy_count += 1
 	else:
-		enemy.position = pot_pos
-
-	enemy.enable_self()
-	enemy.set_process(true)
-
-func do_wave() -> void:
-
-	var min_spawn := 3
-	var max_spawn := _pool_size - _enemy_count
-	if max_spawn <= 0:
-		timer.start()
-		return
-
-	var wave_size := rng.bell_curve(min_spawn, max_spawn)
+		enemy = _enemy_ref.instantiate()
+		add_child(enemy)
+		position_enemy(enemy)
+		enemy.enemy_died.connect(shrink_counter)
+		enemy.enable_self()
+		_enemy_count += 1
 	
-	for i in range(wave_size):
-		spawn_enemy()
-		if _enemy_count >= _pool_size:
-			break
+	enemy.max_hp = enemy.max_hp * get_mult()
+	enemy.current_hp = enemy.max_hp
+	enemy.move_speed = enemy.move_speed * get_mult()
+	enemy.contact_damage = enemy.contact_damage * get_mult()
 
+	enemy_spawned.emit(enemy)
+
+func position_enemy(enemy : BaseUnit) -> void:
+	var player_pos : Vector2 = _unit_ref.global_position
+	var spawn_pos : Vector2 = Vector2.ZERO
+
+	spawn_pos.x = player_pos.x + randf_range(-300, 300)
+	spawn_pos.y = player_pos.y + randf_range(-300, 300)
+
+	if spawn_pos.distance_to(player_pos) < 200:
+		spawn_pos = spawn_pos.normalized() * 250 + player_pos
+
+	enemy.global_position = spawn_pos
+
+func do_wave() -> void :
+	var spawn_count : int = wave_one_count + calculate_spawn_multiplier()
+	print("spawn count: ", spawn_count)
+
+	for i in range(spawn_count):
+		spawn_enemy()
+	_wave_count += 1
 	timer.start()
+	update_mult(get_mult() + 0.05)
+
+func calculate_spawn_multiplier() -> int:
+	return get_mult()*_wave_count/2
+
+func get_mult() -> float :
+	return get_parent().difficulty_mult
+
+func update_mult(new_mult : float) -> void :
+	get_parent().difficulty_mult = new_mult
+
+signal enemy_died()
+func shrink_counter() -> void :
+	enemy_died.emit()
+	_enemy_count -= 1

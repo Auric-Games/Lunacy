@@ -5,6 +5,7 @@ extends PlayerSkill
 @export var max_range : float = 100
 
 var count : int = 0
+@export var sfx : AudioStream = null
 
 @export var instance_queue : Array
 
@@ -18,6 +19,8 @@ func _ready() -> void:
 	timer.wait_time = 4
 
 	mana_cost = 20
+
+	sfx = load("res://game/assets/audio/sounds/water.mp3")
 
 func start() -> void :
 	if player.current_mp > mana_cost + mana_modifier :
@@ -41,6 +44,9 @@ func do_skill() -> void :
 	var wall = template_node.instantiate()
 	get_tree().current_scene.call_deferred("add_child", wall)
 	wall.call_deferred("initialize", max_hp)
+	wall.scale = Vector2(1, 1) * get_parent().get_parent()._current_mult
 
 	wall.position = target
 	wall.rotation = player.global_position.direction_to(target).angle() + PI/2
+
+	AudioMixer.play_sfx(sfx)

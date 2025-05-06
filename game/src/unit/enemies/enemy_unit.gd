@@ -2,7 +2,7 @@ class_name EnemyUnit extends NPCUnit
 
 
 @export var team : int = 1 # 1 for enemies, 0 for players
-@export var contact_damage : int = 15
+@export var contact_damage : int = 10
 
 @onready var SoftCollider : SoftCollision = $SoftCollision
 
@@ -58,6 +58,7 @@ func _process(delta: float) -> void:
 		else:
 			global_position = pot_pos
 		enable_self()
+
 func die() -> void:
 	if _enabled :
 		disable_self()
@@ -66,8 +67,8 @@ func die() -> void:
 
 		await tween.finished
 		hide()
-		scale = Vector2.ONE
-		enemy_died.emit(self)
+		enemy_died.emit()
+		queue_free()
 
 func disable_self() -> void:
 	_enabled = false

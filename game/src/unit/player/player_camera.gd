@@ -85,7 +85,22 @@ func update_combo(input : int) -> void :
 			combo_count += 1
 		_:
 			printerr("something went wrong in combo input visualizer")
-		
+
+func update_score(new_score : int) -> void :
+	var leading_zeros = 9 - str(new_score).length()
+	if leading_zeros > 0 :
+		for i in range(leading_zeros) :
+			$Control/Score.text += "0"
+	$Control/Score.text += str(new_score)
+
+func update_mult(new_mult : float) -> void :
+	var itween : Tween = create_tween()
+	itween.tween_property($Control/Multiplier, "scale", Vector2(2.25, 2.25), 0.15)
+	$Control/Multiplier.text = str(new_mult) + "x"
+	itween.tween_property($Control/Multiplier, "scale", Vector2(2.0, 2.0), 0.15)
+	$Control/Multiplier/Wave.text = "Wave: " + str(get_parent().get_parent().get_node("Enemies")._wave_count)
+	
+
 func combo_end(_value : String) -> void :
 	timer.start()
 	combo_count = 0

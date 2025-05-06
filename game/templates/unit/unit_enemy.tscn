@@ -107,7 +107,6 @@ one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-3, -3)
-scale = Vector2(1, 1)
 shape = SubResource("CapsuleShape2D_2bn6n")
 
 [connection signal="hp_changed" from="." to="HpIndicator" method="update_bar"]
